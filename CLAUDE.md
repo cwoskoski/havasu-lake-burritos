@@ -1,0 +1,249 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Havasu Lake Burritos is a **mobile-first** online burrito ordering platform built with Laravel 12.x, PHP 8.2+, Vite, and TailwindCSS 4.0. Customers build custom burritos through a guided "track" process, selecting ingredients from organized categories.
+
+**CRITICAL: Mobile-First Development**
+- Most customers will order via mobile phones
+- All interfaces must be optimized for touch interactions
+- Minimum 44px touch targets for all interactive elements
+- Single-handed operation capability required
+- Fast loading on mobile networks essential
+
+### Business Domain
+
+**Burrito Building Process ("Track"):**
+1. **Proteins** - Customer selects protein options
+2. **Rice & Beans** - Rice and bean varieties
+3. **Fresh Toppings** - Fresh vegetables and garnishes
+4. **Salsas** - Various salsa options
+5. **Creamy** - Cheese and sour cream selections
+
+**Ingredient Management:**
+- Ingredients change week to week based on availability
+- Each burrito uses standardized portions:
+  - 1/2 cup protein
+  - 1/2 cup rice
+  - 2/3 cup beans
+  - 14-inch tortillas (standard)
+  - Variable amounts of other toppings
+
+**Purchasing System:**
+- Quantity-based ordering for inventory management
+- Portion calculations for ingredient purchasing
+- Weekly ingredient rotation capability
+
+**Production Schedule & Limits:**
+- Burritos only made on Saturdays and Sundays
+- Limited number of burritos available per production day
+- Real-time countdown display of remaining burritos
+- Order availability based on production capacity and schedule
+
+## Development Setup (Laravel Sail + Docker)
+
+### Initial Setup
+Install Laravel Sail for Docker-based development:
+```bash
+composer require laravel/sail --dev
+php artisan sail:install
+```
+
+Select services: **mysql**, **redis**, **mailpit**
+
+### Environment Configuration
+```bash
+cp .env.example .env
+./vendor/bin/sail artisan key:generate
+```
+
+### Start Development Environment
+```bash
+# Start all Docker services
+./vendor/bin/sail up -d
+
+# Install dependencies (inside Docker containers)
+./vendor/bin/sail composer install
+./vendor/bin/sail npm install
+```
+
+## Common Development Commands
+
+### Laravel Sail (Docker) Commands
+- `./vendor/bin/sail up` - Start all Docker services
+- `./vendor/bin/sail up -d` - Start services in background (detached)
+- `./vendor/bin/sail down` - Stop all Docker services
+- `./vendor/bin/sail shell` - Access application container shell
+
+### Backend Development (via Sail)
+- `./vendor/bin/sail artisan serve` - Laravel development server (unnecessary with Sail)
+- `./vendor/bin/sail artisan migrate` - Run database migrations
+- `./vendor/bin/sail artisan migrate:fresh --seed` - Fresh migration with seeders
+- `./vendor/bin/sail artisan tinker` - Interactive PHP shell
+- `./vendor/bin/sail artisan queue:work` - Start queue worker
+- `./vendor/bin/sail artisan pail --timeout=0` - View real-time logs
+
+### Frontend Development (via Sail)
+- `./vendor/bin/sail npm run dev` - Start Vite development server with hot reload
+- `./vendor/bin/sail npm run build` - Build production assets
+
+### Testing and Quality (via Sail)
+- `./vendor/bin/sail test` - Run PHPUnit tests
+- `./vendor/bin/sail artisan test` - Run Laravel tests
+- `./vendor/bin/sail bin pint` - Run Laravel Pint (code formatter)
+
+### Database (Docker Services)
+- **MySQL 8.0** - Development database (Docker container)
+- **Redis** - Caching and queue backend (Docker container)
+- **Mailpit** - Local email testing (Docker container)
+- **SQLite** - Testing database (in-memory)
+
+### Docker Service Access
+- **Application**: http://localhost (port 80)
+- **MySQL**: localhost:3306 (from host machine)
+- **Redis**: localhost:6379 (from host machine)
+- **Mailpit**: http://localhost:8025 (email dashboard)
+
+### Sail Alias (Optional)
+Add to your shell profile for shorter commands:
+```bash
+alias sail='./vendor/bin/sail'
+# Then use: sail up, sail artisan migrate, etc.
+```
+
+## Project Structure
+
+### Backend Architecture
+- **Models**: `app/Models/` - Eloquent models (currently includes User model)
+- **Controllers**: `app/Http/Controllers/` - HTTP request handling
+- **Providers**: `app/Providers/` - Service providers for dependency injection
+- **Routes**: `routes/web.php` - Web routes definition
+- **Database**: `database/migrations/` - Database schema migrations
+- **Database**: `database/seeders/` - Database seeders
+- **Database**: `database/factories/` - Model factories for testing
+
+### Expected Domain Models
+- **Ingredient** - Individual ingredients with categories (proteins, rice_beans, fresh_toppings, salsas, creamy)
+- **IngredientWeek** - Weekly availability and pricing of ingredients
+- **Burrito** - Customer's burrito configuration
+- **Order** - Customer orders containing multiple burritos
+- **IngredientUsage** - Tracking portions used per burrito type
+- **PurchaseOrder** - Quantity-based ingredient ordering for inventory
+- **ProductionDay** - Weekend production settings (Saturday/Sunday) and burrito availability tracking
+- **WeekendSchedule** - Manages Saturday/Sunday production capacity and remaining counts
+
+### Frontend Architecture
+- **Assets**: `resources/css/app.css` and `resources/js/app.js` - Main frontend entry points
+- **Views**: `resources/views/` - Blade templates
+- **Build**: Vite configuration in `vite.config.js` with Laravel plugin and TailwindCSS
+- **Styling**: TailwindCSS 4.0 integrated via Vite plugin
+
+### Configuration
+- **Environment**: `.env` file for environment-specific configuration
+- **Application**: `config/app.php` - Main application configuration
+- **Testing**: `phpunit.xml` - PHPUnit configuration with in-memory SQLite
+
+## Development Workflow
+
+### Docker-Based Development (Laravel Sail)
+
+**Primary workflow:**
+1. `./vendor/bin/sail up -d` - Start all Docker services in background
+2. `./vendor/bin/sail npm run dev` - Start Vite for hot-reloading frontend assets
+3. Develop with automatic database, Redis, and mail services running
+
+**All services run in Docker containers:**
+- **Laravel Application** - Served on http://localhost
+- **MySQL 8.0** - Database service
+- **Redis** - Caching and queue backend
+- **Mailpit** - Email testing dashboard
+- **Vite Dev Server** - Hot-reloading for TailwindCSS 4.0 and JavaScript
+
+**Development benefits:**
+- Consistent environment across team members
+- No local PHP/MySQL/Redis installation required
+- Easy switching between projects
+- Preparation for Laravel Vapor deployment
+
+For focused development, individual services can be managed separately using the Sail commands listed above.
+
+## README.md Maintenance
+
+**IMPORTANT**: The README.md file should be continuously updated as the project evolves. When working on this project, you should:
+
+### When to Update README.md
+- **New features implemented** - Add to Features Roadmap and mark as complete
+- **API endpoints added** - Update the API Endpoints section
+- **Configuration changes** - Update environment variables and config files
+- **New dependencies** - Update Technology Stack section
+- **Database schema changes** - Update Project Structure if significant
+- **Deployment changes** - Update deployment instructions
+
+### Key Sections to Maintain
+1. **Features Roadmap** - Move completed features from [ ] to [x]
+2. **Technology Stack** - Keep dependencies current
+3. **Quick Start** - Ensure installation steps work
+4. **Project Structure** - Update when adding new models/controllers
+5. **API Endpoints** - Document new routes as they're added
+6. **Configuration** - Add new environment variables
+
+### README.md Update Process
+When implementing features:
+1. **Before starting** - Check current roadmap status
+2. **During development** - Note any new dependencies or config needed
+3. **After completion** - Update README.md to reflect:
+   - Completed features (check boxes)
+   - New installation steps
+   - New API endpoints
+   - Updated configuration requirements
+
+### Example Updates
+```markdown
+# When completing burrito builder:
+- [x] Basic burrito builder  # Changed from [ ] to [x]
+
+# When adding new endpoint:
+- `POST /api/orders` - Submit burrito order
+
+# When adding new dependency:
+- **PDF Generation**: barryvdh/laravel-dompdf
+```
+
+This ensures the README.md remains accurate and helpful for new developers joining the project.
+
+## Mobile-First Development Guidelines
+
+**ESSENTIAL**: All components and pages must prioritize mobile experience.
+
+### Touch Target Requirements
+- **Minimum size**: 44px × 44px for all interactive elements
+- **Adequate spacing**: 8px minimum between touch targets
+- **Thumb-friendly placement**: Important actions within thumb reach
+
+### Responsive Design Patterns
+- **Mobile**: Single column, large typography, simplified navigation
+- **Tablet (md:)**: 2-3 column grids, expanded touch targets
+- **Desktop (lg:)**: Full multi-column layouts, hover states
+
+### Performance Requirements
+- **First paint**: < 2 seconds on 3G networks
+- **Interactive**: < 3 seconds on mobile
+- **Image optimization**: WebP with fallbacks, lazy loading
+- **Critical CSS**: Inline above-the-fold styles
+
+### Mobile UX Patterns
+- **Progressive disclosure**: Show only essential info initially
+- **Swipe gestures**: For ingredient browsing (where appropriate)
+- **Pull-to-refresh**: For availability updates
+- **Bottom sheet modals**: Instead of traditional modals on mobile
+- **Sticky navigation**: Keep key actions accessible while scrolling
+
+### Testing Requirements
+- **Real device testing**: Test on actual phones, not just browser DevTools
+- **Various screen sizes**: iPhone SE to large Android phones
+- **Touch interaction testing**: Ensure all gestures work properly
+- **Network conditions**: Test on slow connections
+
+When implementing any feature, always ask: "How will this work on a phone with someone's thumb?"

@@ -3,12 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#2563eb">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Havasu Lake Burritos - Weekend Burrito Orders</title>
+        <meta name="description" content="Order custom burritos online for weekend pickup. Fresh ingredients, $7.50 per burrito, Saturday & Sunday only.">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
 
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -19,36 +21,226 @@
             </style>
         @endif
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-        <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
-            @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
-                    @auth
-                        <a
-                            href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Dashboard
-                        </a>
-                    @else
-                        <a
-                            href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                        >
-                            Log in
-                        </a>
+    <body class="antialiased font-sans bg-gradient-to-br from-lake-blue-50 to-desert-sand">
+        <!-- Availability Banner -->
+        <div class="bg-lake-blue-600 text-white py-2 px-4 text-center text-sm font-medium">
+            🌮 Weekend Orders Open • 25 burritos remaining for Saturday • $7.50 each
+        </div>
 
-                        @if (Route::has('register'))
-                            <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
-                            </a>
-                        @endif
-                    @endauth
-                </nav>
-            @endif
-        </header>
+        <div class="min-h-screen">
+            <!-- Navigation -->
+            <nav class="relative z-10 px-4 py-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto flex items-center justify-between">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-lake-blue-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-lg sm:text-xl">🌮</span>
+                        </div>
+                        <div>
+                            <h1 class="text-lg sm:text-xl font-bold text-gray-900">Havasu Lake Burritos</h1>
+                            <p class="text-xs sm:text-sm text-gray-600">Weekend Fresh</p>
+                        </div>
+                    </div>
+
+                    <!-- Auth Links -->
+                    @if (Route::has('login'))
+                        <div class="flex items-center space-x-2 sm:space-x-4">
+                            @auth
+                                <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 hover:text-lake-blue-600 transition-colors">
+                                    Dashboard
+                                </a>
+                            @else
+                                <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:text-lake-blue-600 transition-colors">
+                                    Sign In
+                                </a>
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="text-sm bg-lake-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-lake-blue-700 transition-colors">
+                                        Register
+                                    </a>
+                                @endif
+                            @endauth
+                        </div>
+                    @endif
+                </div>
+            </nav>
+
+            <!-- Hero Section -->
+            <main class="px-4 py-8 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <!-- Hero Content -->
+                    <div class="mb-8 sm:mb-12">
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                            Fresh Burritos
+                            <span class="block text-lake-blue-600">Every Weekend</span>
+                        </h2>
+                        <p class="text-lg sm:text-xl text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">
+                            Build your perfect burrito with our 5-step process. Made fresh every Saturday and Sunday with quality ingredients.
+                        </p>
+
+                        <!-- CTA Button -->
+                        <div class="mb-8">
+                            <x-forms.button
+                                href="#order"
+                                variant="primary"
+                                size="large"
+                                class="text-lg px-8 py-4 sm:px-10 sm:py-5 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                            >
+                                🌮 Order Your Burrito - $7.50
+                            </x-forms.button>
+                        </div>
+
+                        <!-- Quick Actions for Returning Customers -->
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center mb-8">
+                            <x-forms.button
+                                href="/reorder"
+                                variant="secondary"
+                                size="default"
+                                class="text-sm"
+                            >
+                                🔄 Reorder Previous
+                            </x-forms.button>
+                            <x-forms.button
+                                href="/order-history"
+                                variant="secondary"
+                                size="default"
+                                class="text-sm"
+                            >
+                                📋 Order History
+                            </x-forms.button>
+                        </div>
+
+                        <!-- Schedule Info -->
+                        <div class="inline-flex items-center space-x-4 bg-white/70 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/20 text-sm sm:text-base">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                <span class="font-medium text-gray-700">Weekend Only</span>
+                            </div>
+                            <div class="w-px h-4 bg-gray-300"></div>
+                            <div class="text-gray-600">
+                                Saturday & Sunday
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Burrito Builder Preview -->
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/20 p-6 sm:p-8 mb-8 sm:mb-12">
+                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">5-Step Burrito Builder</h3>
+
+                        <!-- Steps Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+                            <!-- Step 1: Protein -->
+                            <div class="text-center p-4 bg-gradient-to-br from-sunset-orange-50 to-sunset-orange-100 rounded-xl border border-sunset-orange-200">
+                                <div class="text-2xl sm:text-3xl mb-2">🥩</div>
+                                <h4 class="font-semibold text-gray-900 text-sm sm:text-base mb-1">Protein</h4>
+                                <p class="text-xs sm:text-sm text-gray-600">Pork Barbacoa or Chicken</p>
+                            </div>
+
+                            <!-- Step 2: Rice & Beans -->
+                            <div class="text-center p-4 bg-gradient-to-br from-desert-sand to-yellow-100 rounded-xl border border-yellow-200">
+                                <div class="text-2xl sm:text-3xl mb-2">🍚</div>
+                                <h4 class="font-semibold text-gray-900 text-sm sm:text-base mb-1">Rice & Beans</h4>
+                                <p class="text-xs sm:text-sm text-gray-600">Spanish Rice, Various Beans</p>
+                            </div>
+
+                            <!-- Step 3: Fresh Toppings -->
+                            <div class="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200">
+                                <div class="text-2xl sm:text-3xl mb-2">🥬</div>
+                                <h4 class="font-semibold text-gray-900 text-sm sm:text-base mb-1">Fresh</h4>
+                                <p class="text-xs sm:text-sm text-gray-600">Lettuce, Tomato, Onions</p>
+                            </div>
+
+                            <!-- Step 4: Salsas -->
+                            <div class="text-center p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-xl border border-red-200">
+                                <div class="text-2xl sm:text-3xl mb-2">🌶</div>
+                                <h4 class="font-semibold text-gray-900 text-sm sm:text-base mb-1">Salsas</h4>
+                                <p class="text-xs sm:text-sm text-gray-600">Mild or Hot Salsa</p>
+                            </div>
+
+                            <!-- Step 5: Creamy -->
+                            <div class="text-center p-4 bg-gradient-to-br from-lake-blue-50 to-blue-100 rounded-xl border border-blue-200">
+                                <div class="text-2xl sm:text-3xl mb-2">🧀</div>
+                                <h4 class="font-semibold text-gray-900 text-sm sm:text-base mb-1">Creamy</h4>
+                                <p class="text-xs sm:text-sm text-gray-600">Cheese, Sour Cream</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/20 p-6 sm:p-8 mb-8 sm:mb-12">
+                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Easy Payment Options</h3>
+                        <p class="text-gray-600 mb-6 text-sm sm:text-base">Pay quickly and securely with your preferred method</p>
+
+                        <!-- Payment Icons Grid -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <div class="flex flex-col items-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200">
+                                <div class="text-2xl mb-2">💵</div>
+                                <span class="text-sm font-medium text-gray-700">Cash App</span>
+                            </div>
+                            <div class="flex flex-col items-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
+                                <div class="text-2xl mb-2">🔵</div>
+                                <span class="text-sm font-medium text-gray-700">Venmo</span>
+                            </div>
+                            <div class="flex flex-col items-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
+                                <div class="text-2xl mb-2">📱</div>
+                                <span class="text-sm font-medium text-gray-700">Apple Pay</span>
+                            </div>
+                            <div class="flex flex-col items-center p-4 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl border border-yellow-200">
+                                <div class="text-2xl mb-2">💳</div>
+                                <span class="text-sm font-medium text-gray-700">Google Pay</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Features Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
+                        <div class="bg-white/60 backdrop-blur-sm p-6 rounded-xl border border-white/20 text-center">
+                            <div class="w-12 h-12 bg-lake-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">⏰</span>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Weekend Fresh</h3>
+                            <p class="text-sm text-gray-600">Made fresh every Saturday and Sunday with daily limits</p>
+                        </div>
+
+                        <div class="bg-white/60 backdrop-blur-sm p-6 rounded-xl border border-white/20 text-center">
+                            <div class="w-12 h-12 bg-sunset-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">📱</span>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Mobile Optimized</h3>
+                            <p class="text-sm text-gray-600">Built for easy ordering on your phone</p>
+                        </div>
+
+                        <div class="bg-white/60 backdrop-blur-sm p-6 rounded-xl border border-white/20 text-center sm:col-span-2 lg:col-span-1">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">🔄</span>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Easy Reorder</h3>
+                            <p class="text-sm text-gray-600">Reorder your favorites with one tap</p>
+                        </div>
+                    </div>
+
+                    <!-- Bottom CTA -->
+                    <div id="order" class="bg-gradient-to-r from-lake-blue-600 to-lake-blue-700 rounded-2xl p-6 sm:p-8 text-white text-center">
+                        <h3 class="text-xl sm:text-2xl font-bold mb-4">Ready to Order?</h3>
+                        <p class="text-lake-blue-100 mb-6 text-sm sm:text-base">Start building your perfect burrito now</p>
+                        <x-forms.button
+                            href="/order"
+                            variant="secondary"
+                            size="large"
+                            class="bg-white text-lake-blue-600 hover:bg-gray-50 px-8 py-4 text-lg font-semibold shadow-lg"
+                        >
+                            Start Building Your Burrito
+                        </x-forms.button>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="px-4 py-8 sm:px-6 lg:px-8 border-t border-white/20">
+                <div class="max-w-4xl mx-auto text-center text-sm text-gray-600">
+                    <p>&copy; {{ date('Y') }} Havasu Lake Burritos • Weekend Fresh • Made with ❤️</p>
+                </div>
+            </footer>
+        </div>
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
                 <div class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
