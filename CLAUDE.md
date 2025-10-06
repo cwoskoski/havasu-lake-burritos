@@ -85,6 +85,12 @@ cp .env.example .env
 - `./vendor/bin/sail artisan queue:work` - Start queue worker
 - `./vendor/bin/sail artisan pail --timeout=0` - View real-time logs
 
+### Authentication & SMS Development
+- `./vendor/bin/sail artisan breeze:install blade` - Install Laravel Breeze
+- `./vendor/bin/sail composer require twilio/sdk` - Install Twilio PHP SDK
+- `./vendor/bin/sail artisan make:controller PhoneVerificationController` - Create SMS verification controller
+- `./vendor/bin/sail artisan queue:listen` - Process SMS jobs in background
+
 ### Frontend Development (via Sail)
 - `./vendor/bin/sail npm run dev` - Start Vite development server with hot reload
 - `./vendor/bin/sail npm run build` - Build production assets
@@ -125,14 +131,17 @@ alias sail='./vendor/bin/sail'
 - **Database**: `database/factories/` - Model factories for testing
 
 ### Expected Domain Models
+- **User** - Customer accounts with phone verification (extends Laravel User model)
+- **PhoneVerification** - SMS verification codes and phone number validation
 - **Ingredient** - Individual ingredients with categories (proteins, rice_beans, fresh_toppings, salsas, creamy)
 - **IngredientWeek** - Weekly availability and pricing of ingredients
 - **Burrito** - Customer's burrito configuration
-- **Order** - Customer orders containing multiple burritos
+- **Order** - Customer orders containing multiple burritos (linked to phone/user)
 - **IngredientUsage** - Tracking portions used per burrito type
 - **PurchaseOrder** - Quantity-based ingredient ordering for inventory
 - **ProductionDay** - Weekend production settings (Saturday/Sunday) and burrito availability tracking
 - **WeekendSchedule** - Manages Saturday/Sunday production capacity and remaining counts
+- **SmsNotification** - Track SMS messages sent to customers (order updates, pickup alerts)
 
 ### Frontend Architecture
 - **Assets**: `resources/css/app.css` and `resources/js/app.js` - Main frontend entry points
@@ -257,3 +266,95 @@ This ensures the README.md remains accurate and helpful for new developers joini
 - **Network conditions**: Test on slow connections
 
 When implementing any feature, always ask: "How will this work on a phone with someone's thumb?"
+
+## Authentication & SMS Development Guidelines
+
+### Phone + SMS Authentication Approach
+
+**Why Phone Numbers Over Social Auth:**
+- **Direct customer contact** - Essential for order updates and pickup notifications
+- **Local business appropriate** - Food service needs reliable communication
+- **Mobile-first friendly** - Phone numbers are natural on mobile devices
+- **Reduced complexity** - No OAuth setup, simpler user flows
+- **Fraud prevention** - SMS verification ensures real customers
+
+### User Registration Flow
+1. **Initial Registration**: Name, email, password (Laravel Breeze)
+2. **Phone Collection**: Mandatory phone number field
+3. **SMS Verification**: Send 6-digit code to phone
+4. **Account Activation**: Verify code before allowing orders
+5. **Guest Option**: Phone-only checkout for non-account users
+
+### SMS Integration Best Practices
+
+**Rate Limiting & Cost Control:**
+- Limit verification attempts (3 per 10 minutes)
+- Implement progressive delays between resend requests
+- Use queues for SMS sending to prevent blocking
+- Log all SMS activity for cost monitoring
+
+**User Experience:**
+- Clear messaging about why phone is required
+- Auto-format phone numbers (show as: (555) 123-4567)
+- International number support with country codes
+- Graceful fallback if SMS fails
+
+**Security Considerations:**
+- Hash verification codes in database
+- Short expiration times (5-10 minutes)
+- Rate limit by IP and phone number
+- Validate phone number format before sending
+
+### Development Environment Setup
+
+**Twilio Test Credentials:**
+- Use Twilio test credentials during development
+- Test phone numbers: +15005550006 (valid format)
+- Test verification codes work without actual SMS
+- Log SMS content to application logs in local environment
+
+**Database Fields for User Model:**
+```php
+$table->string('phone')->nullable();
+$table->timestamp('phone_verified_at')->nullable();
+$table->boolean('sms_notifications')->default(true);
+$table->boolean('marketing_sms')->default(false);
+```
+
+**Queue Configuration:**
+- SMS sending should always be queued
+- Use 'sms' queue for SMS-specific jobs
+- Implement retry logic for failed SMS
+- Monitor queue status for SMS bottlenecks
+
+### Mobile-First Phone Input Design
+
+**Phone Number Input Best Practices:**
+- Use `type="tel"` for mobile keyboard
+- Implement auto-formatting as user types
+- Show country flag/code selector
+- Large touch targets for number pad
+- Clear validation messaging
+
+**SMS Code Input:**
+- 6-digit code entry with auto-advance
+- Large, finger-friendly input boxes
+- Auto-submit when 6 digits entered
+- Clear countdown timer for resend
+- Paste support for verification codes
+
+### Testing Strategy
+
+**SMS Testing Scenarios:**
+- Valid phone number with successful verification
+- Invalid phone number format handling
+- Rate limiting verification attempts
+- SMS delivery failures and retries
+- Code expiration and regeneration
+- International phone number support
+
+**Test Data Management:**
+- Use factory to generate test users with verified phones
+- Seed database with sample verified customers
+- Mock Twilio service in automated tests
+- Test SMS templates and formatting

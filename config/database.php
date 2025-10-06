@@ -57,10 +57,71 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
-            'engine' => null,
+            'engine' => 'InnoDB',
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+                // Aurora Serverless-like connection options (MySQL 8.0 compatible)
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET sql_mode='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'",
+                PDO::ATTR_TIMEOUT => 60,
+                PDO::ATTR_PERSISTENT => false, // Aurora Serverless manages connections
+                PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
             ]) : [],
+            // Aurora Serverless-like connection pooling
+            'pool' => [
+                'min_connections' => env('DB_POOL_MIN', 1),
+                'max_connections' => env('DB_POOL_MAX', 10),
+                'connect_timeout' => 60,
+                'wait_timeout' => 60,
+                'heartbeat' => -1,
+                'max_idle_time' => 60,
+            ],
+            // Read/Write splitting (Aurora feature)
+            'read' => [
+                'host' => [
+                    env('DB_READ_HOST', env('DB_HOST', '127.0.0.1')),
+                ],
+            ],
+            'write' => [
+                'host' => [
+                    env('DB_WRITE_HOST', env('DB_HOST', '127.0.0.1')),
+                ],
+            ],
+            'sticky' => true,
+        ],
+
+        // Aurora Serverless v2 Data API simulation (for testing)
+        'aurora_data_api' => [
+            'driver' => 'mysql',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => 'InnoDB',
+            'options' => extension_loaded('pdo_mysql') ? [
+                PDO::ATTR_TIMEOUT => 30, // Shorter timeout for Data API
+                PDO::ATTR_PERSISTENT => false,
+                PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => false, // Stream results
+            ] : [],
+        ],
+
+        // Testing connection with SQLite for fast tests
+        'testing' => [
+            'driver' => 'sqlite',
+            'url' => env('DB_URL_TESTING'),
+            'database' => env('DB_DATABASE_TESTING', ':memory:'),
+            'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+            'busy_timeout' => null,
+            'journal_mode' => null,
+            'synchronous' => null,
         ],
 
         'mariadb' => [

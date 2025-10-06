@@ -30,7 +30,8 @@ Havasu Lake Burritos transforms traditional paper-based burrito ordering into a 
 - **Database**: MySQL 8.0 (development), Aurora Serverless (production)
 - **Caching/Queues**: Redis
 - **Email Testing**: Mailpit (local), Mailgun/SendGrid (production)
-- **Authentication**: Laravel Breeze (simple, minimal)
+- **Authentication**: Laravel Breeze + Phone/SMS verification
+- **SMS Service**: Twilio (phone verification & order notifications)
 - **Permissions**: Spatie Laravel Permission
 - **Build Tool**: Vite with Hot Module Replacement
 - **Deployment**: Laravel Vapor (AWS Lambda + Aurora Serverless)
@@ -191,6 +192,11 @@ APP_URL=http://localhost
 DAILY_BURRITO_LIMIT=50
 WEEKEND_PRODUCTION=true
 
+# SMS Service (Twilio)
+TWILIO_SID=your_twilio_account_sid
+TWILIO_TOKEN=your_twilio_auth_token
+TWILIO_FROM=+1234567890
+
 # Kitchen Printing (optional)
 KITCHEN_PRINTER_ENABLED=true
 ```
@@ -198,7 +204,30 @@ KITCHEN_PRINTER_ENABLED=true
 ### Key Configuration Files
 - `config/burrito.php` - Business logic configuration
 - `config/production.php` - Production schedule settings
+- `config/sms.php` - SMS service configuration
 - `.env` - Environment-specific settings
+
+### Authentication & SMS Setup
+
+**User Registration Flow:**
+1. **Basic Info**: Name, email, password (Laravel Breeze)
+2. **Phone Verification**: SMS code sent to provided phone number
+3. **Account Activation**: Phone verified before first order
+
+**SMS Integration (Twilio):**
+1. **Sign up for Twilio** at https://www.twilio.com
+2. **Get credentials** from Twilio Console:
+   - Account SID
+   - Auth Token
+   - Phone number (for sending SMS)
+3. **Configure environment variables** in `.env`
+4. **Install Twilio PHP SDK**: `composer require twilio/sdk`
+
+**Phone Number Benefits:**
+- Direct customer contact for order updates
+- SMS notifications for pickup alerts
+- Reduced fraud through verified phone numbers
+- Guest checkout option for quick orders
 
 ## 🚀 Deployment
 
@@ -256,7 +285,8 @@ If you prefer traditional hosting:
 - [x] Basic project structure
 - [x] Implementation documentation
 - [ ] Core migrations and models
-- [ ] Authentication with Laravel Breeze
+- [ ] Authentication with Laravel Breeze + Phone/SMS verification
+- [ ] SMS integration for order notifications
 - [ ] Basic burrito builder
 
 ### Phase 2

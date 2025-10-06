@@ -1,0 +1,20 @@
+
+
+Code Coverage Report:
+  2025-10-06 16:39:12
+
+ Summary:
+  Classes:  0.00% (0/23)
+  Methods:  6.17% (5/81)
+  Lines:    9.63% (39/405)
+
+App\Enums\IngredientCategory
+  Methods:  50.00% ( 1/ 2)   Lines:  62.50% (  5/  8)
+App\Enums\OrderStatus
+  Methods:  33.33% ( 1/ 3)   Lines:   5.88% (  1/ 17)
+App\Models\User
+  Methods:  20.00% ( 2/10)   Lines:  37.50% (  9/ 24)
+App\Providers\AppServiceProvider
+  Methods:  33.33% ( 1/ 3)   Lines:  75.00% ( 12/ 16)
+App\Providers\AuroraServerlessServiceProvider
+  Methods:   0.00% ( 0/ 3)   Lines:  24.00% ( 12/ 50)

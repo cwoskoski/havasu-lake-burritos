@@ -1,0 +1,361 @@
+name: Test Automation Pipeline
+
+on:
+  push:
+    branches: [ main, '12.x' ]
+  pull_request:
+    branches: [ main, '12.x' ]
+
+jobs:
+  lint-and-analyze:
+    runs-on: ubuntu-latest
+    name: Code Quality & Static Analysis
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, dom, fileinfo, mysql
+        tools: composer:v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Laravel Pint (Code Style)
+      run: ./vendor/bin/pint --test
+
+    - name: PHPStan (Static Analysis)
+      run: ./vendor/bin/phpstan analyse --memory-limit=2G
+
+    - name: PHP Insights (Code Quality)
+      run: ./vendor/bin/phpinsights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: Unit Tests
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, dom, fileinfo, mysql
+        tools: composer:v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Generate app key
+      run: php artisan key:generate --env=testing
+
+    - name: Run Unit Tests
+      run: php artisan test --testsuite=Unit --parallel --coverage --min=80
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: ':memory:'
+
+  feature-tests:
+    runs-on: ubuntu-latest
+    name: Feature Tests
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: testing
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, dom, fileinfo, mysql
+        tools: composer:v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Generate app key
+      run: php artisan key:generate --env=testing
+
+    - name: Run database migrations
+      run: php artisan migrate --env=testing
+      env:
+        DB_CONNECTION: mysql
+        DB_HOST: 127.0.0.1
+        DB_PORT: 3306
+        DB_DATABASE: testing
+        DB_USERNAME: root
+        DB_PASSWORD: password
+
+    - name: Run Feature Tests
+      run: php artisan test --testsuite=Feature --parallel
+      env:
+        DB_CONNECTION: mysql
+        DB_HOST: 127.0.0.1
+        DB_PORT: 3306
+        DB_DATABASE: testing
+        DB_USERNAME: root
+        DB_PASSWORD: password
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    name: Integration Tests
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: testing
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, dom, fileinfo, mysql
+        tools: composer:v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Generate app key
+      run: php artisan key:generate --env=testing
+
+    - name: Run database migrations
+      run: php artisan migrate --env=testing
+
+    - name: Seed test data
+      run: php artisan db:seed --class=TestDataSeeder --env=testing
+
+    - name: Run Integration Tests
+      run: php artisan test --testsuite=Integration
+      env:
+        DB_CONNECTION: mysql
+        DB_HOST: 127.0.0.1
+        DB_PORT: 3306
+        DB_DATABASE: testing
+        DB_USERNAME: root
+        DB_PASSWORD: password
+
+  browser-tests:
+    runs-on: ubuntu-latest
+    name: Browser Tests (Dusk)
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: testing
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, dom, fileinfo, mysql
+        tools: composer:v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install npm dependencies
+      run: npm install
+
+    - name: Build assets
+      run: npm run build
+
+    - name: Generate app key
+      run: php artisan key:generate --env=testing
+
+    - name: Run database migrations
+      run: php artisan migrate --env=testing
+
+    - name: Seed test data
+      run: php artisan db:seed --class=TestDataSeeder --env=testing
+
+    - name: Install Chrome
+      run: |
+        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    - name: Start Laravel server
+      run: php artisan serve --host=127.0.0.1 --port=8000 &
+      env:
+        APP_ENV: testing
+        DB_CONNECTION: mysql
+        DB_HOST: 127.0.0.1
+        DB_PORT: 3306
+        DB_DATABASE: testing
+        DB_USERNAME: root
+        DB_PASSWORD: password
+
+    - name: Run Dusk tests
+      run: php artisan dusk --env=testing
+      env:
+        APP_URL: http://127.0.0.1:8000
+        DB_CONNECTION: mysql
+        DB_HOST: 127.0.0.1
+        DB_PORT: 3306
+        DB_DATABASE: testing
+        DB_USERNAME: root
+        DB_PASSWORD: password
+
+  performance-tests:
+    runs-on: ubuntu-latest
+    name: Performance Tests
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, dom, fileinfo, mysql
+        tools: composer:v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Generate app key
+      run: php artisan key:generate --env=testing
+
+    - name: Run Performance Tests
+      run: php artisan test --testsuite=Performance
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: ':memory:'
+
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Security Scanning
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, dom, fileinfo, mysql
+        tools: composer:v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Security Audit
+      run: composer audit
+
+    - name: Enlightn Security Checker
+      run: |
+        composer require --dev enlightn/security-checker
+        ./vendor/bin/security-checker security:check composer.lock
+
+  coverage-report:
+    runs-on: ubuntu-latest
+    name: Coverage Report
+    needs: [unit-tests, feature-tests]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, dom, fileinfo, mysql, xdebug
+        tools: composer:v2
+        coverage: xdebug
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Generate app key
+      run: php artisan key:generate --env=testing
+
+    - name: Run tests with coverage
+      run: php artisan test --coverage --coverage-clover=coverage.xml --min=80
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: ':memory:'
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: true
+
+  deployment-readiness:
+    runs-on: ubuntu-latest
+    name: Deployment Readiness Check
+    needs: [lint-and-analyze, unit-tests, feature-tests, integration-tests, performance-tests, security-scan]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/12.x'
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, dom, fileinfo, mysql
+        tools: composer:v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
+
+    - name: Cache config
+      run: php artisan config:cache
+
+    - name: Cache routes
+      run: php artisan route:cache
+
+    - name: Cache views
+      run: php artisan view:cache
+
+    - name: Verify optimizations
+      run: |
+        php artisan config:show
+        php artisan route:list
+
+    - name: Production readiness check
+      run: |
+        echo "✅ All tests passed"
+        echo "✅ Code quality checks passed"
+        echo "✅ Security scans passed"
+        echo "✅ Performance tests passed"
+        echo "🚀 Ready for deployment"

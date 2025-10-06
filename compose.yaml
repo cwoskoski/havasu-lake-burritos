@@ -17,16 +17,33 @@ services:
             XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
             XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
+            SUPERVISOR_PHP_USER: '${SUPERVISOR_PHP_USER:-sail}'
+            DB_CONNECTION: mysql
+            DB_HOST: mysql
+            DB_PORT: 3306
+            DB_DATABASE: '${DB_DATABASE}'
+            DB_USERNAME: '${DB_USERNAME}'
+            DB_PASSWORD: '${DB_PASSWORD}'
         volumes:
             - '.:/var/www/html'
         networks:
             - sail
         depends_on:
-            - mysql
-            - redis
-            - mailpit
+            mysql:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+            mailpit:
+                condition: service_started
+        restart: unless-stopped
+        healthcheck:
+            test: ['CMD', 'php', 'artisan', 'tinker', '--execute=echo "healthy";']
+            retries: 3
+            timeout: 10s
+            interval: 30s
+            start_period: 30s
     mysql:
-        image: 'mysql/mysql-server:8.0'
+        image: 'mysql:8.0'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
@@ -35,36 +52,57 @@ services:
             MYSQL_DATABASE: '${DB_DATABASE}'
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 1
-            MYSQL_EXTRA_OPTIONS: '${MYSQL_EXTRA_OPTIONS}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+            # Aurora Serverless-like configuration
+            MYSQL_EXTRA_OPTIONS: '${MYSQL_EXTRA_OPTIONS:-}'
         volumes:
             - 'sail-mysql:/var/lib/mysql'
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
             - sail
+        restart: unless-stopped
+        # Aurora Serverless-like resource limits
+        deploy:
+            resources:
+                limits:
+                    memory: 1G
+                    cpus: '0.5'
+                reservations:
+                    memory: 512M
+                    cpus: '0.25'
         healthcheck:
-            test:
-                - CMD
-                - mysqladmin
-                - ping
-                - '-p${DB_PASSWORD}'
-            retries: 3
-            timeout: 5s
+            test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+            retries: 5
+            timeout: 10s
+            interval: 30s
+            start_period: 60s
+        command: >
+            mysqld
+            --default-authentication-plugin=mysql_native_password
+            --innodb-buffer-pool-size=256M
+            --max-connections=100
+            --slow-query-log=1
+            --long-query-time=2
+            --innodb-flush-log-at-trx-commit=2
+            --innodb-log-buffer-size=16M
+            --max-heap-table-size=64M
+            --tmp-table-size=64M
     redis:
-        image: 'redis:alpine'
+        image: 'redis:7-alpine'
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
             - 'sail-redis:/data'
         networks:
             - sail
+        restart: unless-stopped
         healthcheck:
-            test:
-                - CMD
-                - redis-cli
-                - ping
+            test: ['CMD', 'redis-cli', 'ping']
             retries: 3
             timeout: 5s
+            interval: 30s
+            start_period: 30s
+        command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
     mailpit:
         image: 'axllent/mailpit:latest'
         ports:
@@ -72,6 +110,13 @@ services:
             - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
+        restart: unless-stopped
+        healthcheck:
+            test: ['CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:8025']
+            retries: 3
+            timeout: 5s
+            interval: 30s
+            start_period: 30s
 networks:
     sail:
         driver: bridge

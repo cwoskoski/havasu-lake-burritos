@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         name="Havasu Lake Burritos PHPMD Rules"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceLocationString="http://pmd.sf.net/ruleset/1.0.0">
+
+    <description>Custom PHPMD configuration for mobile-first burrito ordering platform</description>
+
+    <!-- Clean Code Rules -->
+    <rule ref="rulesets/cleancode.xml">
+        <!-- Allow static access for Laravel facades -->
+        <exclude name="StaticAccess"/>
+        <!-- Allow else expressions for business logic readability -->
+        <exclude name="ElseExpression"/>
+    </rule>
+
+    <!-- Code Size Rules (adjusted for mobile performance) -->
+    <rule ref="rulesets/codesize.xml">
+        <!-- Burrito builder methods may need more parameters -->
+        <exclude name="ExcessiveParameterList"/>
+    </rule>
+
+    <!-- Controversial Rules -->
+    <rule ref="rulesets/controversial.xml">
+        <!-- Allow camelCase for mobile-friendly APIs -->
+        <exclude name="CamelCasePropertyName"/>
+        <exclude name="CamelCaseMethodName"/>
+    </rule>
+
+    <!-- Design Rules -->
+    <rule ref="rulesets/design.xml">
+        <!-- Allow exit/die for testing scenarios -->
+        <exclude name="ExitExpression"/>
+    </rule>
+
+    <!-- Naming Rules -->
+    <rule ref="rulesets/naming.xml">
+        <!-- Allow short variable names for touch interactions -->
+        <exclude name="ShortVariable"/>
+        <!-- Allow descriptive long variable names for mobile UX -->
+        <exclude name="LongVariable"/>
+    </rule>
+
+    <!-- Unused Code Rules -->
+    <rule ref="rulesets/unusedcode.xml"/>
+
+    <!-- Mobile-specific complexity limits -->
+    <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+        <properties>
+            <!-- Lower complexity for mobile performance -->
+            <property name="reportLevel" value="8"/>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/codesize.xml/NPathComplexity">
+        <properties>
+            <!-- Stricter N-Path complexity for touch interface reliability -->
+            <property name="minimum" value="100"/>
+        </properties>
+    </rule>
+
+</ruleset>

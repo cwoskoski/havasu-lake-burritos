@@ -1,0 +1,37 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - app/
+        - database/factories/
+        - database/seeders/
+
+    # Set to level 9 for strict analysis (enterprise grade)
+    level: 9
+
+    # Ignore patterns
+    ignoreErrors:
+        # Allow dynamic properties on models for testing
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\.*::\$.*#'
+
+    excludePaths:
+        - bootstrap/cache/
+        - storage/
+        - vendor/
+        - node_modules/
+
+    # Laravel specific configurations
+    checkMissingIterableValueType: true
+    checkGenericClassInNonGenericObjectType: true
+    reportUnmatchedIgnoredErrors: false
+
+    # Burrito business domain specific ignores
+    dynamicConstantNames:
+        - WEEKEND_PRODUCTION_ENABLED
+        - MAX_DAILY_BURRITOS
+        - BURRITO_TRACK_STEPS
+
+    # Allow for Laravel magic methods
+    excludeAnalyses:
+        - missingType.iterableValue

@@ -89,26 +89,16 @@ The admin management console (Phase 4) doesn't change the customer order flow, b
 - [x] Vite + TailwindCSS 4.0 configured
 - [x] Basic project structure established
 - [x] **Set up trunk-based development on main branch**
+- [x] **Install Laravel Sail** for Docker-based development (MySQL, Redis, Mailpit)
+- [x] **Configure Docker environment** - All services running and healthy
+- [x] **Install Laravel Breeze** (auth routes and views configured)
+- [x] **Install additional packages**:
+  - [x] `spatie/laravel-permission` for admin/customer roles
+  - [x] `twilio/sdk` for SMS verification
+  - [x] `laravel/vapor-core` for deployment
+  - [x] Testing stack: Pest, Dusk, Playwright
+  - [ ] Optional: `barryvdh/laravel-dompdf` for kitchen ticket printing
 - [ ] **Configure feature flags system** for hiding incomplete features
-- [ ] **Install Laravel Sail** for Docker-based development:
-  ```bash
-  composer require laravel/sail --dev
-  php artisan sail:install
-  # Select: mysql, redis, mailpit
-  ```
-- [ ] **Configure Docker environment**:
-  - Set up .env for Sail
-  - Start Docker services with `./vendor/bin/sail up -d`
-  - Install dependencies via Sail
-- [ ] **Install Laravel Breeze** (simplest auth stack):
-  ```bash
-  ./vendor/bin/sail artisan breeze:install blade
-  ./vendor/bin/sail npm install && ./vendor/bin/sail npm run dev
-  ```
-- [ ] **Install additional packages**:
-  - `spatie/laravel-permission` for admin/customer roles
-  - Optional: `barryvdh/laravel-dompdf` for kitchen ticket printing
-  - Payment platform integrations (simple API endpoints for Cash App, Venmo, Apple Pay, Google Pay)
 
 ### 1.2 Database Design & Migrations (Admin-Ready Architecture)
 **Design database schema to support future admin features without refactoring:**
@@ -156,12 +146,16 @@ The admin management console (Phase 4) doesn't change the customer order flow, b
   - **API Tests**: Burrito builder endpoints, order processing
   - **Integration Tests**: Payment flows, kitchen printing
 
-### 1.3 Authentication & User Management (Laravel Breeze + Roles)
+### 1.3 Authentication & User Management (Laravel Breeze + Phone/SMS)
 - [ ] Configure Breeze authentication views and routes
-- [ ] Install and configure `spatie/laravel-permission`
-- [ ] Create admin and customer roles
-- [ ] Customize Breeze registration for customer onboarding
+- [ ] Install and configure `spatie/laravel-permission` for basic roles
+- [ ] **Add phone number field** to user registration
+- [ ] **Implement SMS verification system** for phone validation
+- [ ] **Set up SMS service integration** (Twilio recommended)
+- [ ] Create customer and admin roles
+- [ ] Customize Breeze registration for mobile-first phone collection
 - [ ] Create admin-only routes and middleware
+- [ ] **Guest checkout option** - collect phone for order notifications only
 
 ## Phase 2: Core Business Logic (Week 2-3)
 
@@ -185,13 +179,21 @@ The admin management console (Phase 4) doesn't change the customer order flow, b
 - [ ] Implement basic order validation
 - [ ] Set up order number generation
 
-### 2.4 Payment System Integration
+### 2.4 SMS Communication System
+- [ ] **SMS Service Setup** - Configure Twilio or AWS SNS for messaging
+- [ ] **Phone Verification Flow** - Send verification codes during registration
+- [ ] **Order Status Notifications** - Automated SMS for order updates
+- [ ] **Pickup Notifications** - SMS alerts when orders are ready
+- [ ] **Marketing Opt-in** - Optional SMS promotions with consent
+- [ ] **SMS Rate Limiting** - Prevent spam and manage costs
+
+### 2.5 Payment System Integration
 - [ ] **Simple Payment API Design** - Create endpoints for popular platforms
 - [ ] **Cash App Integration** - Simple payment link generation
 - [ ] **Venmo Integration** - Payment request URL creation
 - [ ] **Apple Pay/Google Pay** - Web API integration for mobile browsers
 - [ ] **Payment Status Tracking** - Link payments to orders
-- [ ] **Order History for Reordering** - Store customer preferences
+- [ ] **Order History for Reordering** - Store customer preferences with phone lookup
 - [ ] **One-tap Reorder System** - Quick duplicate previous orders
 
 ## Phase 3: Customer Frontend (Week 4-5)
@@ -341,8 +343,9 @@ php artisan make:job UpdateInventory
 - **Storage Configuration**: S3 or local for ingredient images
 
 ### Third-Party Integrations
+- **SMS Service**: Twilio for phone verification and order notifications
 - **Payment Processing**: Stripe or Square for order payments
-- **Email Service**: Mailgun or SendGrid for notifications
+- **Email Service**: Mailgun or SendGrid for backup notifications
 - **Image Optimization**: ImageKit or Cloudinary for ingredient photos
 - **Analytics**: Google Analytics for business insights
 

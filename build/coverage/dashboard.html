@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/html/app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=11.0.11" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css?v=11.0.11" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=11.0.11" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/var/www/html/app</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Auth/AuthenticatedSessionController.php.html#12">App\Http\Controllers\Auth\AuthenticatedSessionController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmablePasswordController.php.html#12">App\Http\Controllers\Auth\ConfirmablePasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#9">App\Http\Controllers\Auth\EmailVerificationNotificationController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#10">App\Http\Controllers\Auth\EmailVerificationPromptController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/NewPasswordController.php.html#16">App\Http\Controllers\Auth\NewPasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/PasswordController.php.html#11">App\Http\Controllers\Auth\PasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/PasswordResetLinkController.php.html#11">App\Http\Controllers\Auth\PasswordResetLinkController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisteredUserController.php.html#15">App\Http\Controllers\Auth\RegisteredUserController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#10">App\Http\Controllers\Auth\VerifyEmailController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#16">App\Http\Controllers\ExampleFeatureController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#12">App\Http\Controllers\ProfileController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#12">App\Http\Requests\Auth\LoginRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/ProfileUpdateRequest.php.html#9">App\Http\Requests\ProfileUpdateRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Ingredient.php.html#11">App\Models\Ingredient</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#15">App\Services\FeatureService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="View/Components/AppLayout.php.html#8">App\View\Components\AppLayout</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="View/Components/GuestLayout.php.html#8">App\View\Components\GuestLayout</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Enums/ProductionDay.php.html#5">App\Enums\ProductionDay</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Enums/OrderStatus.php.html#5">App\Enums\OrderStatus</a></td><td class="text-right">5%</td></tr>
+       <tr><td><a href="Providers/AuroraServerlessServiceProvider.php.html#10">App\Providers\AuroraServerlessServiceProvider</a></td><td class="text-right">24%</td></tr>
+       <tr><td><a href="Models/User.php.html#10">App\Models\User</a></td><td class="text-right">37%</td></tr>
+       <tr><td><a href="Enums/IngredientCategory.php.html#5">App\Enums\IngredientCategory</a></td><td class="text-right">62%</td></tr>
+       <tr><td><a href="Providers/AppServiceProvider.php.html#11">App\Providers\AppServiceProvider</a></td><td class="text-right">75%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#16">App\Http\Controllers\ExampleFeatureController</a></td><td class="text-right">756</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#15">App\Services\FeatureService</a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="Enums/OrderStatus.php.html#5">App\Enums\OrderStatus</a></td><td class="text-right">202</td></tr>
+       <tr><td><a href="Enums/ProductionDay.php.html#5">App\Enums\ProductionDay</a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Models/User.php.html#10">App\Models\User</a></td><td class="text-right">78</td></tr>
+       <tr><td><a href="Providers/AuroraServerlessServiceProvider.php.html#10">App\Providers\AuroraServerlessServiceProvider</a></td><td class="text-right">75</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#12">App\Http\Requests\Auth\LoginRequest</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#12">App\Http\Controllers\ProfileController</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmablePasswordController.php.html#12">App\Http\Controllers\Auth\ConfirmablePasswordController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/NewPasswordController.php.html#16">App\Http\Controllers\Auth\NewPasswordController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/PasswordResetLinkController.php.html#11">App\Http\Controllers\Auth\PasswordResetLinkController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#10">App\Http\Controllers\Auth\VerifyEmailController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Enums/IngredientCategory.php.html#5">App\Enums\IngredientCategory</a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#9">App\Http\Controllers\Auth\EmailVerificationNotificationController</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#10">App\Http\Controllers\Auth\EmailVerificationPromptController</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Providers/AppServiceProvider.php.html#11">App\Providers\AppServiceProvider</a></td><td class="text-right">4</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Auth/AuthenticatedSessionController.php.html#17"><abbr title="App\Http\Controllers\Auth\AuthenticatedSessionController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/AuthenticatedSessionController.php.html#25"><abbr title="App\Http\Controllers\Auth\AuthenticatedSessionController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/AuthenticatedSessionController.php.html#37"><abbr title="App\Http\Controllers\Auth\AuthenticatedSessionController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmablePasswordController.php.html#17"><abbr title="App\Http\Controllers\Auth\ConfirmablePasswordController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmablePasswordController.php.html#25"><abbr title="App\Http\Controllers\Auth\ConfirmablePasswordController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#14"><abbr title="App\Http\Controllers\Auth\EmailVerificationNotificationController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#15"><abbr title="App\Http\Controllers\Auth\EmailVerificationPromptController::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/NewPasswordController.php.html#21"><abbr title="App\Http\Controllers\Auth\NewPasswordController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/NewPasswordController.php.html#31"><abbr title="App\Http\Controllers\Auth\NewPasswordController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/PasswordController.php.html#16"><abbr title="App\Http\Controllers\Auth\PasswordController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/PasswordResetLinkController.php.html#16"><abbr title="App\Http\Controllers\Auth\PasswordResetLinkController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/PasswordResetLinkController.php.html#26"><abbr title="App\Http\Controllers\Auth\PasswordResetLinkController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisteredUserController.php.html#20"><abbr title="App\Http\Controllers\Auth\RegisteredUserController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisteredUserController.php.html#30"><abbr title="App\Http\Controllers\Auth\RegisteredUserController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#15"><abbr title="App\Http\Controllers\Auth\VerifyEmailController::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#18"><abbr title="App\Http\Controllers\ExampleFeatureController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#25"><abbr title="App\Http\Controllers\ExampleFeatureController::showBurritoBuilder">showBurritoBuilder</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#54"><abbr title="App\Http\Controllers\ExampleFeatureController::processPayment">processPayment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#84"><abbr title="App\Http\Controllers\ExampleFeatureController::getOrderingOptions">getOrderingOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#118"><abbr title="App\Http\Controllers\ExampleFeatureController::getIngredientData">getIngredientData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#145"><abbr title="App\Http\Controllers\ExampleFeatureController::showNotificationSettings">showNotificationSettings</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#160"><abbr title="App\Http\Controllers\ExampleFeatureController::adminDashboard">adminDashboard</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#193"><abbr title="App\Http\Controllers\ExampleFeatureController::processPaymentV1">processPaymentV1</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#199"><abbr title="App\Http\Controllers\ExampleFeatureController::processPaymentV2">processPaymentV2</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#205"><abbr title="App\Http\Controllers\ExampleFeatureController::getBasicIngredients">getBasicIngredients</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#210"><abbr title="App\Http\Controllers\ExampleFeatureController::getNutritionalData">getNutritionalData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#215"><abbr title="App\Http\Controllers\ExampleFeatureController::getAllergenData">getAllergenData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#220"><abbr title="App\Http\Controllers\ExampleFeatureController::getPortionData">getPortionData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#17"><abbr title="App\Http\Controllers\ProfileController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#27"><abbr title="App\Http\Controllers\ProfileController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#43"><abbr title="App\Http\Controllers\ProfileController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#17"><abbr title="App\Http\Requests\Auth\LoginRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#27"><abbr title="App\Http\Requests\Auth\LoginRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#40"><abbr title="App\Http\Requests\Auth\LoginRequest::authenticate">authenticate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#60"><abbr title="App\Http\Requests\Auth\LoginRequest::ensureIsNotRateLimited">ensureIsNotRateLimited</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#81"><abbr title="App\Http\Requests\Auth\LoginRequest::throttleKey">throttleKey</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/ProfileUpdateRequest.php.html#16"><abbr title="App\Http\Requests\ProfileUpdateRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Ingredient.php.html#40"><abbr title="App\Models\Ingredient::ingredientWeeks">ingredientWeeks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Ingredient.php.html#45"><abbr title="App\Models\Ingredient::scopeActive">scopeActive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Ingredient.php.html#50"><abbr title="App\Models\Ingredient::scopeByCategory">scopeByCategory</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Ingredient.php.html#55"><abbr title="App\Models\Ingredient::scopeOrdered">scopeOrdered</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#70"><abbr title="App\Models\User::canPlaceOrders">canPlaceOrders</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#78"><abbr title="App\Models\User::canReceiveSms">canReceiveSms</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#86"><abbr title="App\Models\User::canReceiveMarketingSms">canReceiveMarketingSms</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#94"><abbr title="App\Models\User::hasCompleteProfile">hasCompleteProfile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#102"><abbr title="App\Models\User::getFormattedPhoneAttribute">getFormattedPhoneAttribute</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#119"><abbr title="App\Models\User::verifyPhone">verifyPhone</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#127"><abbr title="App\Models\User::unverifyPhone">unverifyPhone</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#135"><abbr title="App\Models\User::updateSmsPreferences">updateSmsPreferences</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#20"><abbr title="App\Services\FeatureService::enabled">enabled</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#35"><abbr title="App\Services\FeatureService::disabled">disabled</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#43"><abbr title="App\Services\FeatureService::config">config</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#51"><abbr title="App\Services\FeatureService::anyEnabled">anyEnabled</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#65"><abbr title="App\Services\FeatureService::allEnabled">allEnabled</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#81"><abbr title="App\Services\FeatureService::getAllEnabled">getAllEnabled</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#98"><abbr title="App\Services\FeatureService::isDevelopmentMode">isDevelopmentMode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#103"><abbr title="App\Services\FeatureService::isStagingMode">isStagingMode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#108"><abbr title="App\Services\FeatureService::isBetaMode">isBetaMode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#118"><abbr title="App\Services\FeatureService::getEnabledPaymentMethods">getEnabledPaymentMethods</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#141"><abbr title="App\Services\FeatureService::getProductionSchedule">getProductionSchedule</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#158"><abbr title="App\Services\FeatureService::getSmsSettings">getSmsSettings</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="View/Components/AppLayout.php.html#13"><abbr title="App\View\Components\AppLayout::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="View/Components/GuestLayout.php.html#13"><abbr title="App\View\Components\GuestLayout::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Enums/OrderStatus.php.html#14"><abbr title="App\Enums\OrderStatus::label">label</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Enums/OrderStatus.php.html#31"><abbr title="App\Enums\OrderStatus::canTransitionTo">canTransitionTo</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Enums/ProductionDay.php.html#10"><abbr title="App\Enums\ProductionDay::label">label</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Enums/ProductionDay.php.html#18"><abbr title="App\Enums\ProductionDay::values">values</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Enums/ProductionDay.php.html#26"><abbr title="App\Enums\ProductionDay::toCarbonDay">toCarbonDay</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Enums/ProductionDay.php.html#37"><abbr title="App\Enums\ProductionDay::matchesDate">matchesDate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Enums/ProductionDay.php.html#45"><abbr title="App\Enums\ProductionDay::nextOccurrence">nextOccurrence</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/AuroraServerlessServiceProvider.php.html#15"><abbr title="App\Providers\AuroraServerlessServiceProvider::register">register</abbr></a></td><td class="text-right">6%</td></tr>
+       <tr><td><a href="Providers/AuroraServerlessServiceProvider.php.html#85"><abbr title="App\Providers\AuroraServerlessServiceProvider::boot">boot</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Providers/AuroraServerlessServiceProvider.php.html#103"><abbr title="App\Providers\AuroraServerlessServiceProvider::optimizeForAuroraServerless">optimizeForAuroraServerless</abbr></a></td><td class="text-right">53%</td></tr>
+       <tr><td><a href="Enums/IngredientCategory.php.html#13"><abbr title="App\Enums\IngredientCategory::label">label</abbr></a></td><td class="text-right">57%</td></tr>
+       <tr><td><a href="Providers/AppServiceProvider.php.html#44"><abbr title="App\Providers\AppServiceProvider::registerFeatureBladeDirectives">registerFeatureBladeDirectives</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Providers/AppServiceProvider.php.html#16"><abbr title="App\Providers\AppServiceProvider::register">register</abbr></a></td><td class="text-right">83%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Enums/OrderStatus.php.html#14"><abbr title="App\Enums\OrderStatus::label">label</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Enums/OrderStatus.php.html#31"><abbr title="App\Enums\OrderStatus::canTransitionTo">canTransitionTo</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Providers/AuroraServerlessServiceProvider.php.html#15"><abbr title="App\Providers\AuroraServerlessServiceProvider::register">register</abbr></a></td><td class="text-right">35</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#84"><abbr title="App\Http\Controllers\ExampleFeatureController::getOrderingOptions">getOrderingOptions</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#160"><abbr title="App\Http\Controllers\ExampleFeatureController::adminDashboard">adminDashboard</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#54"><abbr title="App\Http\Controllers\ExampleFeatureController::processPayment">processPayment</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/ExampleFeatureController.php.html#118"><abbr title="App\Http\Controllers\ExampleFeatureController::getIngredientData">getIngredientData</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#118"><abbr title="App\Services\FeatureService::getEnabledPaymentMethods">getEnabledPaymentMethods</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#15"><abbr title="App\Http\Controllers\Auth\VerifyEmailController::__invoke">__invoke</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Models/User.php.html#102"><abbr title="App\Models\User::getFormattedPhoneAttribute">getFormattedPhoneAttribute</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#51"><abbr title="App\Services\FeatureService::anyEnabled">anyEnabled</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#65"><abbr title="App\Services\FeatureService::allEnabled">allEnabled</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#81"><abbr title="App\Services\FeatureService::getAllEnabled">getAllEnabled</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Enums/ProductionDay.php.html#10"><abbr title="App\Enums\ProductionDay::label">label</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Enums/ProductionDay.php.html#26"><abbr title="App\Enums\ProductionDay::toCarbonDay">toCarbonDay</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Enums/IngredientCategory.php.html#13"><abbr title="App\Enums\IngredientCategory::label">label</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmablePasswordController.php.html#25"><abbr title="App\Http\Controllers\Auth\ConfirmablePasswordController::store">store</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#14"><abbr title="App\Http\Controllers\Auth\EmailVerificationNotificationController::store">store</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#15"><abbr title="App\Http\Controllers\Auth\EmailVerificationPromptController::__invoke">__invoke</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/NewPasswordController.php.html#31"><abbr title="App\Http\Controllers\Auth\NewPasswordController::store">store</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/PasswordResetLinkController.php.html#26"><abbr title="App\Http\Controllers\Auth\PasswordResetLinkController::store">store</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#27"><abbr title="App\Http\Controllers\ProfileController::update">update</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#40"><abbr title="App\Http\Requests\Auth\LoginRequest::authenticate">authenticate</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#60"><abbr title="App\Http\Requests\Auth\LoginRequest::ensureIsNotRateLimited">ensureIsNotRateLimited</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Models/User.php.html#78"><abbr title="App\Models\User::canReceiveSms">canReceiveSms</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Models/User.php.html#86"><abbr title="App\Models\User::canReceiveMarketingSms">canReceiveMarketingSms</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Models/User.php.html#94"><abbr title="App\Models\User::hasCompleteProfile">hasCompleteProfile</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Models/User.php.html#135"><abbr title="App\Models\User::updateSmsPreferences">updateSmsPreferences</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Services/FeatureService.php.html#20"><abbr title="App\Services\FeatureService::enabled">enabled</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Enums/ProductionDay.php.html#45"><abbr title="App\Enums\ProductionDay::nextOccurrence">nextOccurrence</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Providers/AuroraServerlessServiceProvider.php.html#85"><abbr title="App\Providers\AuroraServerlessServiceProvider::boot">boot</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Providers/AuroraServerlessServiceProvider.php.html#103"><abbr title="App\Providers\AuroraServerlessServiceProvider::optimizeForAuroraServerless">optimizeForAuroraServerless</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Providers/AppServiceProvider.php.html#16"><abbr title="App\Providers\AppServiceProvider::register">register</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.11</a> using <a href="https://www.php.net/" target="_top">PHP 8.4.12</a> and <a href="https://phpunit.de/">PHPUnit 11.5.33</a> at Mon Oct 6 16:39:12 MST 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js?v=11.0.11" type="text/javascript"></script>
+  <script src="_js/d3.min.js?v=11.0.11" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js?v=11.0.11" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([18,1,0,1,1,0,0,1,1,0,0,1], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([70,1,0,0,0,0,3,1,0,1,0,5], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,3,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#12\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/ConfirmablePasswordController.php.html#12\">App\\Http\\Controllers\\Auth\\ConfirmablePasswordController<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationNotificationController.php.html#9\">App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationPromptController.php.html#10\">App\\Http\\Controllers\\Auth\\EmailVerificationPromptController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/NewPasswordController.php.html#16\">App\\Http\\Controllers\\Auth\\NewPasswordController<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/PasswordController.php.html#11\">App\\Http\\Controllers\\Auth\\PasswordController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#11\">App\\Http\\Controllers\\Auth\\PasswordResetLinkController<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/RegisteredUserController.php.html#15\">App\\Http\\Controllers\\Auth\\RegisteredUserController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/VerifyEmailController.php.html#10\">App\\Http\\Controllers\\Auth\\VerifyEmailController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Controller.php.html#5\">App\\Http\\Controllers\\Controller<\/a>"],[0,27,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#16\">App\\Http\\Controllers\\ExampleFeatureController<\/a>"],[0,4,"<a href=\"Http\/Controllers\/ProfileController.php.html#12\">App\\Http\\Controllers\\ProfileController<\/a>"],[0,7,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#12\">App\\Http\\Requests\\Auth\\LoginRequest<\/a>"],[0,1,"<a href=\"Http\/Requests\/ProfileUpdateRequest.php.html#9\">App\\Http\\Requests\\ProfileUpdateRequest<\/a>"],[0,4,"<a href=\"Models\/Ingredient.php.html#11\">App\\Models\\Ingredient<\/a>"],[37.5,16,"<a href=\"Models\/User.php.html#10\">App\\Models\\User<\/a>"],[75,4,"<a href=\"Providers\/AppServiceProvider.php.html#11\">App\\Providers\\AppServiceProvider<\/a>"],[24,12,"<a href=\"Providers\/AuroraServerlessServiceProvider.php.html#10\">App\\Providers\\AuroraServerlessServiceProvider<\/a>"],[0,22,"<a href=\"Services\/FeatureService.php.html#15\">App\\Services\\FeatureService<\/a>"],[0,1,"<a href=\"View\/Components\/AppLayout.php.html#8\">App\\View\\Components\\AppLayout<\/a>"],[0,1,"<a href=\"View\/Components\/GuestLayout.php.html#8\">App\\View\\Components\\GuestLayout<\/a>"],[62.5,7,"<a href=\"Enums\/IngredientCategory.php.html#5\">App\\Enums\\IngredientCategory<\/a>"],[5.88235294117647,15,"<a href=\"Enums\/OrderStatus.php.html#5\">App\\Enums\\OrderStatus<\/a>"],[0,10,"<a href=\"Enums\/ProductionDay.php.html#5\">App\\Enums\\ProductionDay<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#17\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::create<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#25\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#37\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::destroy<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ConfirmablePasswordController.php.html#17\">App\\Http\\Controllers\\Auth\\ConfirmablePasswordController::show<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/ConfirmablePasswordController.php.html#25\">App\\Http\\Controllers\\Auth\\ConfirmablePasswordController::store<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationNotificationController.php.html#14\">App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController::store<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationPromptController.php.html#15\">App\\Http\\Controllers\\Auth\\EmailVerificationPromptController::__invoke<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/NewPasswordController.php.html#21\">App\\Http\\Controllers\\Auth\\NewPasswordController::create<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/NewPasswordController.php.html#31\">App\\Http\\Controllers\\Auth\\NewPasswordController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/PasswordController.php.html#16\">App\\Http\\Controllers\\Auth\\PasswordController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#16\">App\\Http\\Controllers\\Auth\\PasswordResetLinkController::create<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#26\">App\\Http\\Controllers\\Auth\\PasswordResetLinkController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/RegisteredUserController.php.html#20\">App\\Http\\Controllers\\Auth\\RegisteredUserController::create<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/RegisteredUserController.php.html#30\">App\\Http\\Controllers\\Auth\\RegisteredUserController::store<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/VerifyEmailController.php.html#15\">App\\Http\\Controllers\\Auth\\VerifyEmailController::__invoke<\/a>"],[0,1,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#18\">App\\Http\\Controllers\\ExampleFeatureController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#25\">App\\Http\\Controllers\\ExampleFeatureController::showBurritoBuilder<\/a>"],[0,4,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#54\">App\\Http\\Controllers\\ExampleFeatureController::processPayment<\/a>"],[0,5,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#84\">App\\Http\\Controllers\\ExampleFeatureController::getOrderingOptions<\/a>"],[0,4,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#118\">App\\Http\\Controllers\\ExampleFeatureController::getIngredientData<\/a>"],[0,1,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#145\">App\\Http\\Controllers\\ExampleFeatureController::showNotificationSettings<\/a>"],[0,5,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#160\">App\\Http\\Controllers\\ExampleFeatureController::adminDashboard<\/a>"],[0,1,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#193\">App\\Http\\Controllers\\ExampleFeatureController::processPaymentV1<\/a>"],[0,1,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#199\">App\\Http\\Controllers\\ExampleFeatureController::processPaymentV2<\/a>"],[0,1,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#205\">App\\Http\\Controllers\\ExampleFeatureController::getBasicIngredients<\/a>"],[0,1,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#210\">App\\Http\\Controllers\\ExampleFeatureController::getNutritionalData<\/a>"],[0,1,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#215\">App\\Http\\Controllers\\ExampleFeatureController::getAllergenData<\/a>"],[0,1,"<a href=\"Http\/Controllers\/ExampleFeatureController.php.html#220\">App\\Http\\Controllers\\ExampleFeatureController::getPortionData<\/a>"],[0,1,"<a href=\"Http\/Controllers\/ProfileController.php.html#17\">App\\Http\\Controllers\\ProfileController::edit<\/a>"],[0,2,"<a href=\"Http\/Controllers\/ProfileController.php.html#27\">App\\Http\\Controllers\\ProfileController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/ProfileController.php.html#43\">App\\Http\\Controllers\\ProfileController::destroy<\/a>"],[0,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#17\">App\\Http\\Requests\\Auth\\LoginRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#27\">App\\Http\\Requests\\Auth\\LoginRequest::rules<\/a>"],[0,2,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#40\">App\\Http\\Requests\\Auth\\LoginRequest::authenticate<\/a>"],[0,2,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#60\">App\\Http\\Requests\\Auth\\LoginRequest::ensureIsNotRateLimited<\/a>"],[0,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#81\">App\\Http\\Requests\\Auth\\LoginRequest::throttleKey<\/a>"],[0,1,"<a href=\"Http\/Requests\/ProfileUpdateRequest.php.html#16\">App\\Http\\Requests\\ProfileUpdateRequest::rules<\/a>"],[0,1,"<a href=\"Models\/Ingredient.php.html#40\">App\\Models\\Ingredient::ingredientWeeks<\/a>"],[0,1,"<a href=\"Models\/Ingredient.php.html#45\">App\\Models\\Ingredient::scopeActive<\/a>"],[0,1,"<a href=\"Models\/Ingredient.php.html#50\">App\\Models\\Ingredient::scopeByCategory<\/a>"],[0,1,"<a href=\"Models\/Ingredient.php.html#55\">App\\Models\\Ingredient::scopeOrdered<\/a>"],[100,1,"<a href=\"Models\/User.php.html#46\">App\\Models\\User::casts<\/a>"],[100,1,"<a href=\"Models\/User.php.html#61\">App\\Models\\User::isPhoneVerified<\/a>"],[0,1,"<a href=\"Models\/User.php.html#70\">App\\Models\\User::canPlaceOrders<\/a>"],[0,2,"<a href=\"Models\/User.php.html#78\">App\\Models\\User::canReceiveSms<\/a>"],[0,2,"<a href=\"Models\/User.php.html#86\">App\\Models\\User::canReceiveMarketingSms<\/a>"],[0,2,"<a href=\"Models\/User.php.html#94\">App\\Models\\User::hasCompleteProfile<\/a>"],[0,3,"<a href=\"Models\/User.php.html#102\">App\\Models\\User::getFormattedPhoneAttribute<\/a>"],[0,1,"<a href=\"Models\/User.php.html#119\">App\\Models\\User::verifyPhone<\/a>"],[0,1,"<a href=\"Models\/User.php.html#127\">App\\Models\\User::unverifyPhone<\/a>"],[0,2,"<a href=\"Models\/User.php.html#135\">App\\Models\\User::updateSmsPreferences<\/a>"],[83.33333333333334,2,"<a href=\"Providers\/AppServiceProvider.php.html#16\">App\\Providers\\AppServiceProvider::register<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#35\">App\\Providers\\AppServiceProvider::boot<\/a>"],[66.66666666666666,1,"<a href=\"Providers\/AppServiceProvider.php.html#44\">App\\Providers\\AppServiceProvider::registerFeatureBladeDirectives<\/a>"],[6.451612903225806,6,"<a href=\"Providers\/AuroraServerlessServiceProvider.php.html#15\">App\\Providers\\AuroraServerlessServiceProvider::register<\/a>"],[50,3,"<a href=\"Providers\/AuroraServerlessServiceProvider.php.html#85\">App\\Providers\\AuroraServerlessServiceProvider::boot<\/a>"],[53.84615384615385,3,"<a href=\"Providers\/AuroraServerlessServiceProvider.php.html#103\">App\\Providers\\AuroraServerlessServiceProvider::optimizeForAuroraServerless<\/a>"],[0,2,"<a href=\"Services\/FeatureService.php.html#20\">App\\Services\\FeatureService::enabled<\/a>"],[0,1,"<a href=\"Services\/FeatureService.php.html#35\">App\\Services\\FeatureService::disabled<\/a>"],[0,1,"<a href=\"Services\/FeatureService.php.html#43\">App\\Services\\FeatureService::config<\/a>"],[0,3,"<a href=\"Services\/FeatureService.php.html#51\">App\\Services\\FeatureService::anyEnabled<\/a>"],[0,3,"<a href=\"Services\/FeatureService.php.html#65\">App\\Services\\FeatureService::allEnabled<\/a>"],[0,3,"<a href=\"Services\/FeatureService.php.html#81\">App\\Services\\FeatureService::getAllEnabled<\/a>"],[0,1,"<a href=\"Services\/FeatureService.php.html#98\">App\\Services\\FeatureService::isDevelopmentMode<\/a>"],[0,1,"<a href=\"Services\/FeatureService.php.html#103\">App\\Services\\FeatureService::isStagingMode<\/a>"],[0,1,"<a href=\"Services\/FeatureService.php.html#108\">App\\Services\\FeatureService::isBetaMode<\/a>"],[0,4,"<a href=\"Services\/FeatureService.php.html#118\">App\\Services\\FeatureService::getEnabledPaymentMethods<\/a>"],[0,1,"<a href=\"Services\/FeatureService.php.html#141\">App\\Services\\FeatureService::getProductionSchedule<\/a>"],[0,1,"<a href=\"Services\/FeatureService.php.html#158\">App\\Services\\FeatureService::getSmsSettings<\/a>"],[0,1,"<a href=\"View\/Components\/AppLayout.php.html#13\">App\\View\\Components\\AppLayout::render<\/a>"],[0,1,"<a href=\"View\/Components\/GuestLayout.php.html#13\">App\\View\\Components\\GuestLayout::render<\/a>"],[57.14285714285714,6,"<a href=\"Enums\/IngredientCategory.php.html#13\">App\\Enums\\IngredientCategory::label<\/a>"],[100,1,"<a href=\"Enums\/IngredientCategory.php.html#24\">App\\Enums\\IngredientCategory::values<\/a>"],[0,7,"<a href=\"Enums\/OrderStatus.php.html#14\">App\\Enums\\OrderStatus::label<\/a>"],[100,1,"<a href=\"Enums\/OrderStatus.php.html#26\">App\\Enums\\OrderStatus::values<\/a>"],[0,7,"<a href=\"Enums\/OrderStatus.php.html#31\">App\\Enums\\OrderStatus::canTransitionTo<\/a>"],[0,3,"<a href=\"Enums\/ProductionDay.php.html#10\">App\\Enums\\ProductionDay::label<\/a>"],[0,1,"<a href=\"Enums\/ProductionDay.php.html#18\">App\\Enums\\ProductionDay::values<\/a>"],[0,3,"<a href=\"Enums\/ProductionDay.php.html#26\">App\\Enums\\ProductionDay::toCarbonDay<\/a>"],[0,1,"<a href=\"Enums\/ProductionDay.php.html#37\">App\\Enums\\ProductionDay::matchesDate<\/a>"],[0,2,"<a href=\"Enums\/ProductionDay.php.html#45\">App\\Enums\\ProductionDay::nextOccurrence<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

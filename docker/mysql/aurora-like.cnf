@@ -1,0 +1,92 @@
+# Aurora Serverless-like MySQL Configuration
+# This configuration mimics AWS Aurora Serverless v2 characteristics for local development
+
+[mysqld]
+# === Aurora Serverless Performance Settings ===
+
+# InnoDB Configuration (Aurora uses InnoDB)
+innodb_buffer_pool_size = 256M
+innodb_log_file_size = 64M
+innodb_log_buffer_size = 16M
+innodb_flush_log_at_trx_commit = 1
+innodb_file_per_table = 1
+innodb_open_files = 300
+
+# Connection and Threading (Aurora Serverless auto-scales)
+max_connections = 100
+thread_cache_size = 8
+table_open_cache = 64
+
+# Query Cache (Aurora has intelligent caching)
+query_cache_type = 1
+query_cache_size = 64M
+query_cache_limit = 2M
+
+# Memory Tables
+tmp_table_size = 64M
+max_heap_table_size = 64M
+
+# === Aurora Serverless Compatibility ===
+
+# Binary Logging (Aurora uses binary logs for replication)
+log_bin = mysql-bin
+binlog_format = ROW
+expire_logs_days = 7
+max_binlog_size = 100M
+
+# Aurora uses GTID for replication
+gtid_mode = ON
+enforce_gtid_consistency = ON
+
+# Performance Schema (Aurora has enhanced monitoring)
+performance_schema = ON
+performance_schema_max_table_instances = 400
+performance_schema_max_table_handles = 4000
+
+# === Burrito Business Optimizations ===
+
+# Weekend ordering optimization - faster reads for order processing
+innodb_read_ahead_threshold = 0
+innodb_random_read_ahead = OFF
+
+# Mobile-first optimization - faster connection handling
+skip_name_resolve = 1
+back_log = 80
+
+# SMS and notification optimization - faster writes
+sync_binlog = 0
+innodb_flush_method = O_DIRECT
+
+# Order processing optimization
+sort_buffer_size = 4M
+read_buffer_size = 2M
+read_rnd_buffer_size = 2M
+
+# === Monitoring and Debugging ===
+
+# Slow query logging (Aurora has Performance Insights)
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow.log
+long_query_time = 2
+log_queries_not_using_indexes = 1
+
+# General logging for development
+general_log = 0
+general_log_file = /var/log/mysql/general.log
+
+# Error logging
+log_error = /var/log/mysql/error.log
+log_warnings = 2
+
+# === Character Set (Aurora default) ===
+character_set_server = utf8mb4
+collation_server = utf8mb4_unicode_ci
+
+# === Time Zone Support ===
+default_time_zone = '-07:00'  # Arizona (Mountain Standard Time, no DST)
+
+[mysql]
+default_character_set = utf8mb4
+
+[client]
+default_character_set = utf8mb4
