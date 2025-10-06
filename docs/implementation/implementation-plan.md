@@ -22,53 +22,65 @@ The admin management console (Phase 4) doesn't change the customer order flow, b
 
 **Key Principle:** Build backend foundation robust enough for admin features, implement customer flow first, add admin interface later without architectural changes.
 
-## Git Workflow Strategy
+## Git Workflow Strategy - Trunk-Based Development
 
-**Branch Strategy for Staging and Production Deployment:**
+**Single Trunk Strategy for Fast, Continuous Integration:**
+
+### Core Principles
+- **Single source of truth**: All development happens on `main` trunk
+- **Frequent commits**: Multiple commits per day, small incremental changes
+- **Short-lived branches**: Feature branches last hours to 1-2 days maximum
+- **Feature flags**: Hide incomplete features, keep trunk always releasable
+- **Automated testing**: Strong CI/CD pipeline catches issues immediately
 
 ### Branch Structure
-- **`main`** - Production branch (auto-deploys to Laravel Vapor production)
-- **`staging`** - Staging environment (auto-deploys to Vapor staging)
-- **`develop`** - Integration branch for feature development
-- **`feature/*`** - Feature branches (e.g., `feature/burrito-builder`, `feature/payment-integration`)
-- **`hotfix/*`** - Emergency production fixes
-- **`release/*`** - Release preparation branches
+- **`main`** - Single trunk branch (production-ready, auto-deploys to Laravel Vapor)
+- **`feature/*`** - Very short-lived branches (optional, <2 days)
+- **`hotfix/*`** - Emergency fixes (merged immediately)
 
-### Workflow Process
-1. **Feature Development**:
-   ```bash
-   git checkout develop
-   git pull origin develop
-   git checkout -b feature/ingredient-management
-   # Develop with TDD approach
-   git push origin feature/ingredient-management
-   # Create pull request to develop
-   ```
-
-2. **Integration Testing** (develop → staging):
-   ```bash
-   git checkout staging
-   git merge develop
-   git push origin staging  # Auto-deploys to Vapor staging
-   ```
-
-3. **Production Release** (staging → main):
+### Typical Workflow
+1. **Pull latest trunk**:
    ```bash
    git checkout main
-   git merge staging
-   git tag v1.0.0
-   git push origin main --tags  # Auto-deploys to Vapor production
+   git pull origin main
+   ```
+
+2. **Make small changes** (Option A - Direct to trunk):
+   ```bash
+   # Work in small increments
+   git add .
+   git commit -m "Add ingredient validation logic"
+   git push origin main
+   ```
+
+3. **Make small changes** (Option B - Short-lived branch):
+   ```bash
+   git checkout -b feature/payment-validation
+   # Work for <2 days maximum
+   git push origin feature/payment-validation
+   # Create PR immediately, merge within hours
+   ```
+
+4. **Use feature flags for incomplete work**:
+   ```php
+   if (config('features.new_payment_flow')) {
+       // New payment logic
+   } else {
+       // Current payment logic
+   }
    ```
 
 ### Laravel Vapor Integration
-- **Staging Environment**: `vapor deploy staging`
-- **Production Environment**: `vapor deploy production`
-- **Auto-deployment**: GitHub Actions trigger Vapor deploys on push
+- **Production**: Direct deployment from `main` trunk
+- **Staging**: Optional staging environment for larger changes
+- **Feature flags**: Environment-based feature toggles
 
-### Protection Rules
-- **main**: Require PR reviews, status checks, no direct pushes
-- **staging**: Require PR from develop, status checks
-- **develop**: Integration branch, allow direct pushes for quick fixes
+### Key Practices
+- **Small commits**: Break work into <4 hour chunks
+- **TDD approach**: Write tests first, commit frequently
+- **Fast code reviews**: <2 hour review turnaround
+- **Feature flags**: Hide incomplete features behind toggles
+- **CI/CD**: Automated testing prevents trunk breakage
 
 ## Phase 1: Foundation & Setup (Week 1)
 
@@ -76,14 +88,8 @@ The admin management console (Phase 4) doesn't change the customer order flow, b
 - [x] Laravel 12.x project initialized
 - [x] Vite + TailwindCSS 4.0 configured
 - [x] Basic project structure established
-- [ ] **Set up Git workflow branches**:
-  ```bash
-  git checkout -b develop
-  git push -u origin develop
-  git checkout -b staging
-  git push -u origin staging
-  # Keep main as production branch
-  ```
+- [x] **Set up trunk-based development on main branch**
+- [ ] **Configure feature flags system** for hiding incomplete features
 - [ ] **Install Laravel Sail** for Docker-based development:
   ```bash
   composer require laravel/sail --dev

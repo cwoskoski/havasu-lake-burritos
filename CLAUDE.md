@@ -147,12 +147,21 @@ alias sail='./vendor/bin/sail'
 
 ## Development Workflow
 
-### Docker-Based Development (Laravel Sail)
+### Trunk-Based Development + Docker (Laravel Sail)
 
-**Primary workflow:**
-1. `./vendor/bin/sail up -d` - Start all Docker services in background
-2. `./vendor/bin/sail npm run dev` - Start Vite for hot-reloading frontend assets
-3. Develop with automatic database, Redis, and mail services running
+**Primary workflow (Trunk-based):**
+1. `git pull origin main` - Always start with latest trunk
+2. `./vendor/bin/sail up -d` - Start all Docker services in background
+3. `./vendor/bin/sail npm run dev` - Start Vite for hot-reloading frontend assets
+4. Develop in small increments with frequent commits to main
+5. Use feature flags to hide incomplete features
+
+**Trunk-based Development Principles:**
+- **Frequent commits**: Multiple commits per day to main branch
+- **Small changes**: Break work into <4 hour chunks
+- **Feature flags**: Hide incomplete features behind config toggles
+- **TDD approach**: Write tests first, commit often
+- **Short-lived branches**: Optional branches last <2 days maximum
 
 **All services run in Docker containers:**
 - **Laravel Application** - Served on http://localhost
@@ -166,6 +175,7 @@ alias sail='./vendor/bin/sail'
 - No local PHP/MySQL/Redis installation required
 - Easy switching between projects
 - Preparation for Laravel Vapor deployment
+- Continuous integration with trunk-based workflow
 
 For focused development, individual services can be managed separately using the Sail commands listed above.
 
