@@ -15,6 +15,7 @@ return new class extends Migration
             $table->boolean('marketing_sms')->default(false)->after('sms_notifications');
             $table->string('preferred_name', 50)->nullable()->after('name');
             $table->json('preferences')->nullable()->after('marketing_sms');
+            $table->boolean('is_admin')->default(false)->after('preferences');
 
             $table->index('phone');
             $table->index('phone_verified_at');
@@ -32,7 +33,8 @@ return new class extends Migration
                 'sms_notifications',
                 'marketing_sms',
                 'preferred_name',
-                'preferences'
+                'preferences',
+                'is_admin',
             ]);
         });
     }

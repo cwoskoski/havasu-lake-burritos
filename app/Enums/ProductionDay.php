@@ -9,7 +9,7 @@ enum ProductionDay: string
 
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::SATURDAY => 'Saturday',
             self::SUNDAY => 'Sunday',
         };
@@ -25,7 +25,7 @@ enum ProductionDay: string
      */
     public function toCarbonDay(): int
     {
-        return match($this) {
+        return match ($this) {
             self::SATURDAY => \Carbon\Carbon::SATURDAY,
             self::SUNDAY => \Carbon\Carbon::SUNDAY,
         };
@@ -42,9 +42,10 @@ enum ProductionDay: string
     /**
      * Get the next occurrence of this production day.
      */
-    public function nextOccurrence(\Carbon\Carbon $from = null): \Carbon\Carbon
+    public function nextOccurrence(?\Carbon\Carbon $from = null): \Carbon\Carbon
     {
         $from = $from ?: \Carbon\Carbon::now();
+
         return $from->next($this->toCarbonDay());
     }
 }

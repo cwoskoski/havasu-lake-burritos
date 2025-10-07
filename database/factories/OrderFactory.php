@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Models\User;
-use App\Enums\OrderStatus;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends Factory<Order>
@@ -74,7 +74,7 @@ class OrderFactory extends Factory
     /**
      * Create an order with customer notes.
      */
-    public function withNotes(string $customerNotes, string $adminNotes = null): static
+    public function withNotes(string $customerNotes, ?string $adminNotes = null): static
     {
         return $this->state(fn (array $attributes) => [
             'customer_notes' => $customerNotes,

@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Enums\IngredientCategory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
@@ -23,7 +23,7 @@ class IngredientFactory extends Factory
 
         return [
             'name' => $name,
-            'slug' => Str::slug($name) . '-' . $this->faker->unique()->numberBetween(1000, 9999),
+            'slug' => Str::slug($name).'-'.$this->faker->unique()->numberBetween(1000, 9999),
             'category' => $category,
             'description' => $this->generateDescriptionByCategory($category),
             'standard_portion_oz' => $this->getPortionSizeByCategory($category),
@@ -46,7 +46,7 @@ class IngredientFactory extends Factory
 
             return [
                 'name' => $name,
-                'slug' => Str::slug($name),
+                'slug' => Str::slug($name).'-'.$this->faker->unique()->numberBetween(1000, 9999),
                 'category' => $category,
                 'description' => $this->generateDescriptionByCategory($category),
                 'standard_portion_oz' => $this->getPortionSizeByCategory($category),
@@ -190,22 +190,22 @@ class IngredientFactory extends Factory
     {
         return match ($category) {
             IngredientCategory::PROTEINS => $this->faker->randomElement([
-                'Carnitas', 'Chicken', 'Barbacoa', 'Beef', 'Tofu', 'Chorizo', 'Fish'
+                'Carnitas', 'Chicken', 'Barbacoa', 'Beef', 'Tofu', 'Chorizo', 'Fish',
             ]),
             IngredientCategory::RICE_BEANS => $this->faker->randomElement([
                 'Cilantro Lime Rice', 'Spanish Rice', 'Brown Rice',
-                'Black Beans', 'Pinto Beans', 'Refried Beans', 'White Rice'
+                'Black Beans', 'Pinto Beans', 'Refried Beans', 'White Rice',
             ]),
             IngredientCategory::FRESH_TOPPINGS => $this->faker->randomElement([
                 'Lettuce', 'Tomatoes', 'Onions', 'Cilantro', 'Jalapeños',
-                'Red Onions', 'Bell Peppers', 'Corn', 'Avocado'
+                'Red Onions', 'Bell Peppers', 'Corn', 'Avocado',
             ]),
             IngredientCategory::SALSAS => $this->faker->randomElement([
                 'Mild Salsa', 'Medium Salsa', 'Hot Salsa', 'Salsa Verde',
-                'Corn Salsa', 'Pico de Gallo', 'Chipotle Salsa'
+                'Corn Salsa', 'Pico de Gallo', 'Chipotle Salsa',
             ]),
             IngredientCategory::CREAMY => $this->faker->randomElement([
-                'Cheese', 'Sour Cream', 'Guacamole', 'Crema', 'Queso Fresco'
+                'Cheese', 'Sour Cream', 'Guacamole', 'Crema', 'Queso Fresco',
             ]),
         };
     }
@@ -219,27 +219,27 @@ class IngredientFactory extends Factory
             IngredientCategory::PROTEINS => $this->faker->randomElement([
                 'Slow-cooked and seasoned to perfection',
                 'Grilled with traditional spices',
-                'Fresh and flavorful protein option'
+                'Fresh and flavorful protein option',
             ]),
             IngredientCategory::RICE_BEANS => $this->faker->randomElement([
                 'Fluffy and perfectly seasoned',
                 'Cooked with authentic flavors',
-                'Traditional recipe with fresh herbs'
+                'Traditional recipe with fresh herbs',
             ]),
             IngredientCategory::FRESH_TOPPINGS => $this->faker->randomElement([
                 'Fresh and crisp',
                 'Locally sourced when possible',
-                'Adds perfect crunch and flavor'
+                'Adds perfect crunch and flavor',
             ]),
             IngredientCategory::SALSAS => $this->faker->randomElement([
                 'Made fresh daily',
                 'Perfect blend of spices and flavor',
-                'Traditional recipe with a kick'
+                'Traditional recipe with a kick',
             ]),
             IngredientCategory::CREAMY => $this->faker->randomElement([
                 'Rich and creamy texture',
                 'Made fresh with quality ingredients',
-                'Adds perfect richness to your burrito'
+                'Adds perfect richness to your burrito',
             ]),
         };
     }
@@ -317,19 +317,19 @@ class IngredientFactory extends Factory
     {
         return match ($category) {
             IngredientCategory::PROTEINS => $this->faker->randomElement([
-                '#8B4513', '#CD853F', '#A0522D', '#D2691E' // Browns
+                '#8B4513', '#CD853F', '#A0522D', '#D2691E', // Browns
             ]),
             IngredientCategory::RICE_BEANS => $this->faker->randomElement([
-                '#F5DEB3', '#DEB887', '#8B4513', '#654321' // Beiges and browns
+                '#F5DEB3', '#DEB887', '#8B4513', '#654321', // Beiges and browns
             ]),
             IngredientCategory::FRESH_TOPPINGS => $this->faker->randomElement([
-                '#228B22', '#32CD32', '#FF6347', '#FFA500' // Greens and bright colors
+                '#228B22', '#32CD32', '#FF6347', '#FFA500', // Greens and bright colors
             ]),
             IngredientCategory::SALSAS => $this->faker->randomElement([
-                '#FF4500', '#DC143C', '#B22222', '#8B0000' // Reds
+                '#FF4500', '#DC143C', '#B22222', '#8B0000', // Reds
             ]),
             IngredientCategory::CREAMY => $this->faker->randomElement([
-                '#FFFACD', '#F5F5DC', '#FFFFE0', '#FFF8DC' // Creams and whites
+                '#FFFACD', '#F5F5DC', '#FFFFE0', '#FFF8DC', // Creams and whites
             ]),
         };
     }

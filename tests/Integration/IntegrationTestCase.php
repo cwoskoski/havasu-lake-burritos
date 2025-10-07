@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\Integration;
 
+use App\Enums\IngredientCategory;
+use App\Models\Ingredient;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use Tests\Traits\ApiTesting;
 use Tests\Traits\DatabaseTesting;
 use Tests\Traits\ServiceTesting;
-use App\Models\User;
-use App\Models\Ingredient;
-use App\Enums\IngredientCategory;
-use Carbon\Carbon;
 
 /**
  * Base class for integration tests that test multiple components working together.
@@ -25,9 +24,9 @@ use Carbon\Carbon;
  */
 abstract class IntegrationTestCase extends TestCase
 {
-    use RefreshDatabase;
     use ApiTesting;
     use DatabaseTesting;
+    use RefreshDatabase;
     use ServiceTesting;
 
     /**
@@ -101,20 +100,20 @@ abstract class IntegrationTestCase extends TestCase
         // Verified user
         User::factory()->verified()->create([
             'email' => 'verified@test.com',
-            'phone' => '+15551111111'
+            'phone' => '+15551111111',
         ]);
 
         // Unverified user
         User::factory()->create([
             'email' => 'unverified@test.com',
             'phone' => '+15552222222',
-            'phone_verified_at' => null
+            'phone_verified_at' => null,
         ]);
 
         // User without phone
         User::factory()->create([
             'email' => 'nophone@test.com',
-            'phone' => null
+            'phone' => null,
         ]);
     }
 
@@ -132,7 +131,7 @@ abstract class IntegrationTestCase extends TestCase
             'ingredients' => $this->getAvailableIngredients(),
             'user' => User::factory()->verified()->create(),
             'production_capacity' => 100,
-            'remaining_capacity' => 95
+            'remaining_capacity' => 95,
         ];
     }
 
@@ -204,7 +203,7 @@ abstract class IntegrationTestCase extends TestCase
             'rice_beans' => ['cilantro_rice', 'black_beans'],
             'fresh_toppings' => ['lettuce', 'tomatoes'],
             'salsas' => ['medium'],
-            'creamy' => ['cheese']
+            'creamy' => ['cheese'],
         ];
 
         $response = $this->postJson('/api/burrito-builder', $burritoData);
@@ -229,11 +228,11 @@ abstract class IntegrationTestCase extends TestCase
                     'rice_beans' => ['cilantro_rice', 'black_beans'],
                     'fresh_toppings' => ['lettuce'],
                     'salsas' => ['medium'],
-                    'creamy' => ['cheese']
-                ]
+                    'creamy' => ['cheese'],
+                ],
             ],
             'pickup_time' => Carbon::now()->addHours(2)->toISOString(),
-            'customer_notes' => 'Extra spicy please'
+            'customer_notes' => 'Extra spicy please',
         ];
 
         $response = $this->postJson('/api/orders', $orderData);
@@ -242,7 +241,7 @@ abstract class IntegrationTestCase extends TestCase
         // Verify order was created in database
         $this->assertDatabaseHas('orders', [
             'user_id' => $user->id,
-            'status' => 'pending'
+            'status' => 'pending',
         ]);
     }
 
@@ -272,9 +271,9 @@ abstract class IntegrationTestCase extends TestCase
                     'rice_beans' => ['spanish_rice'],
                     'fresh_toppings' => ['lettuce'],
                     'salsas' => ['mild'],
-                    'creamy' => []
-                ]
-            ]
+                    'creamy' => [],
+                ],
+            ],
         ];
 
         // Mock phone verification
@@ -286,7 +285,7 @@ abstract class IntegrationTestCase extends TestCase
         // Verify guest order was created
         $this->assertDatabaseHas('orders', [
             'guest_phone' => '+15559999999',
-            'guest_name' => 'Guest Customer'
+            'guest_name' => 'Guest Customer',
         ]);
     }
 
@@ -298,7 +297,7 @@ abstract class IntegrationTestCase extends TestCase
         $endpoints = [
             '/api/burrito-builder',
             '/api/orders',
-            '/api/guest-orders'
+            '/api/guest-orders',
         ];
 
         foreach ($endpoints as $endpoint) {
@@ -319,19 +318,19 @@ abstract class IntegrationTestCase extends TestCase
             $order = $user->orders()->create([
                 'status' => 'pending',
                 'total_amount' => 1200,
-                'pickup_time' => Carbon::now()->addHours(2)
+                'pickup_time' => Carbon::now()->addHours(2),
             ]);
 
             // Create burrito with ingredients
             $burrito = $order->burritos()->create([
-                'price' => 1200
+                'price' => 1200,
             ]);
 
             // Add ingredients
             $ingredients = Ingredient::take(5)->get();
             foreach ($ingredients as $ingredient) {
                 $burrito->ingredients()->attach($ingredient->id, [
-                    'quantity' => 1.0
+                    'quantity' => 1.0,
                 ]);
             }
         }, 15); // Allow up to 15 queries for this complex operation
@@ -344,13 +343,13 @@ abstract class IntegrationTestCase extends TestCase
     {
         // Test ingredient caching
         $this->assertServiceCaching(
-            fn() => $this->getJson('/api/ingredients')->json(),
+            fn () => $this->getJson('/api/ingredients')->json(),
             'ingredients.available.current_week'
         );
 
         // Test production schedule caching
         $this->assertServiceCaching(
-            fn() => $this->getJson('/api/production-status')->json(),
+            fn () => $this->getJson('/api/production-status')->json(),
             'production.schedule.current_weekend'
         );
     }
@@ -363,7 +362,7 @@ abstract class IntegrationTestCase extends TestCase
         $criticalEndpoints = [
             '/api/ingredients',
             '/api/production-status',
-            '/api/burrito-builder'
+            '/api/burrito-builder',
         ];
 
         foreach ($criticalEndpoints as $endpoint) {

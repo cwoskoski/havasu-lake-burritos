@@ -2,17 +2,17 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Queue;
-use App\Models\User;
-use Carbon\Carbon;
 use Mockery;
 
 abstract class TestCase extends BaseTestCase
@@ -62,7 +62,7 @@ abstract class TestCase extends BaseTestCase
         if ($executionTime > 2.0) { // Only warn for very slow tests
             $testName = method_exists($this, 'getName') ? $this->getName() : get_class($this);
             // Log to error_log instead of echoing to avoid test output interference
-            error_log("Slow test detected: " . $testName . " took {$executionTime}s");
+            error_log('Slow test detected: '.$testName." took {$executionTime}s");
         }
 
         // Reset Carbon test time
@@ -120,6 +120,7 @@ abstract class TestCase extends BaseTestCase
     protected function actingAsUser($user = null): static
     {
         $user = $user ?: User::factory()->verified()->create();
+
         return $this->actingAs($user);
     }
 
@@ -129,6 +130,7 @@ abstract class TestCase extends BaseTestCase
     protected function actingAsVerifiedUser(array $attributes = []): static
     {
         $user = User::factory()->verified()->create($attributes);
+
         return $this->actingAs($user);
     }
 
@@ -138,6 +140,7 @@ abstract class TestCase extends BaseTestCase
     protected function actingAsGuestWithPhone(string $phone = '+15551234567'): array
     {
         session(['guest_phone' => $phone, 'phone_verified' => true]);
+
         return ['phone' => $phone];
     }
 
@@ -177,7 +180,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Mock weekend production schedule.
      */
-    protected function mockWeekendSchedule(Carbon $date = null, int $maxBurritos = 100): array
+    protected function mockWeekendSchedule(?Carbon $date = null, int $maxBurritos = 100): array
     {
         $date = $date ?: Carbon::now()->next(Carbon::SATURDAY);
 

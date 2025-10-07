@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Ingredient;
 use App\Enums\IngredientCategory;
+use App\Models\Ingredient;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 /**
  * Seeder specifically for test data.

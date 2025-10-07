@@ -82,7 +82,7 @@ abstract class PerformanceTestCase extends TestCase
         $this->assertLessThanOrEqual(
             $this->maxQueriesPerRequest,
             $queryCount,
-            "Too many database queries: {$queryCount}. Maximum allowed: {$this->maxQueriesPerRequest}. Queries: " .
+            "Too many database queries: {$queryCount}. Maximum allowed: {$this->maxQueriesPerRequest}. Queries: ".
             collect($queries)->pluck('query')->implode(', ')
         );
     }
@@ -90,7 +90,7 @@ abstract class PerformanceTestCase extends TestCase
     /**
      * Assert memory usage is within mobile-optimized limits.
      */
-    protected function assertMemoryUsage(int $maxMB = null): void
+    protected function assertMemoryUsage(?int $maxMB = null): void
     {
         $currentMemory = memory_get_usage(true);
         $memoryUsed = ($currentMemory - $this->initialMemory) / 1024 / 1024; // Convert to MB
@@ -106,7 +106,7 @@ abstract class PerformanceTestCase extends TestCase
     /**
      * Benchmark a closure and assert execution time.
      */
-    protected function benchmarkExecution(callable $callback, int $maxTimeMs = null): float
+    protected function benchmarkExecution(callable $callback, ?int $maxTimeMs = null): float
     {
         $maxTimeMs = $maxTimeMs ?? $this->maxMobileResponseTime;
 
@@ -158,7 +158,7 @@ abstract class PerformanceTestCase extends TestCase
                 $this->assertMobileApiPerformance('/api/burrito-builder/start');
                 $this->assertMobileApiPerformance('/api/ingredients/available');
                 $this->assertMobileApiPerformance('/api/burrito/calculate-price', [
-                    'ingredients' => ['chicken', 'spanish_rice', 'black_beans']
+                    'ingredients' => ['chicken', 'spanish_rice', 'black_beans'],
                 ]);
             };
         }
@@ -184,7 +184,7 @@ abstract class PerformanceTestCase extends TestCase
             // Test validating order capacity
             $this->postJson('/api/orders/validate-capacity', [
                 'burrito_count' => 2,
-                'pickup_date' => now()->nextWeekend()->format('Y-m-d')
+                'pickup_date' => now()->nextWeekend()->format('Y-m-d'),
             ]);
         }, 200); // Tighter performance requirement for critical business logic
     }

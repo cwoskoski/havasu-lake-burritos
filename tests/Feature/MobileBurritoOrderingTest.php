@@ -32,15 +32,15 @@ class MobileBurritoOrderingTest extends TestCase
         $response = $this->get('/build-burrito');
 
         $response->assertStatus(200)
-                ->assertSee('Proteins') // First track step
-                ->assertSee('Rice & Beans') // Second track step
-                ->assertSee('Fresh Toppings') // Third track step
-                ->assertSee('Salsas') // Fourth track step
-                ->assertSee('Creamy'); // Fifth track step
+            ->assertSee('Proteins') // First track step
+            ->assertSee('Rice & Beans') // Second track step
+            ->assertSee('Fresh Toppings') // Third track step
+            ->assertSee('Salsas') // Fourth track step
+            ->assertSee('Creamy'); // Fifth track step
 
         // Test mobile-specific navigation elements
         $response->assertSee('Next')
-                ->assertSee('Previous');
+            ->assertSee('Previous');
     }
 
     /**
@@ -54,14 +54,14 @@ class MobileBurritoOrderingTest extends TestCase
         if ($today->isWeekend()) {
             $response = $this->get('/build-burrito');
             $response->assertStatus(200)
-                    ->assertSee('Build Your Burrito')
-                    ->assertDontSee('Orders are only available on weekends');
+                ->assertSee('Build Your Burrito')
+                ->assertDontSee('Orders are only available on weekends');
         } else {
             $response = $this->get('/build-burrito');
             $response->assertStatus(200)
-                    ->assertSee('Orders are only available on weekends')
-                    ->assertSee('Saturday')
-                    ->assertSee('Sunday');
+                ->assertSee('Orders are only available on weekends')
+                ->assertSee('Saturday')
+                ->assertSee('Sunday');
         }
     }
 
@@ -74,13 +74,13 @@ class MobileBurritoOrderingTest extends TestCase
         $response = $this->getJson('/api/ingredients/available');
 
         $response->assertStatus(200)
-                ->assertJsonStructure([
-                    'proteins',
-                    'rice_beans',
-                    'fresh_toppings',
-                    'salsas',
-                    'creamy'
-                ]);
+            ->assertJsonStructure([
+                'proteins',
+                'rice_beans',
+                'fresh_toppings',
+                'salsas',
+                'creamy',
+            ]);
 
         // Test mobile-optimized response size
         $responseSize = strlen($response->getContent());
@@ -99,18 +99,18 @@ class MobileBurritoOrderingTest extends TestCase
                 'beans' => 'black_beans',
                 'toppings' => ['lettuce', 'tomatoes'],
                 'salsa' => 'medium',
-                'creamy' => 'cheese'
-            ]
+                'creamy' => 'cheese',
+            ],
         ];
 
         $response = $this->postJson('/api/burrito/calculate-price', $burritoData);
 
         $response->assertStatus(200)
-                ->assertJsonStructure([
-                    'total_price',
-                    'ingredients_breakdown',
-                    'estimated_pickup_time'
-                ]);
+            ->assertJsonStructure([
+                'total_price',
+                'ingredients_breakdown',
+                'estimated_pickup_time',
+            ]);
 
         // Verify mobile-friendly price format
         $priceData = $response->json();
@@ -134,26 +134,26 @@ class MobileBurritoOrderingTest extends TestCase
                         'beans' => 'black_beans',
                         'toppings' => ['lettuce', 'tomatoes'],
                         'salsa' => 'medium',
-                        'creamy' => 'cheese'
+                        'creamy' => 'cheese',
                     ],
-                    'quantity' => 2
-                ]
+                    'quantity' => 2,
+                ],
             ],
             'pickup_date' => now()->nextWeekend()->format('Y-m-d'),
             'pickup_time' => '12:00',
-            'customer_notes' => 'Extra spicy please!'
+            'customer_notes' => 'Extra spicy please!',
         ];
 
         $response = $this->postJson('/api/orders', $orderData);
 
         $response->assertStatus(201)
-                ->assertJsonStructure([
-                    'order_id',
-                    'total_price',
-                    'pickup_datetime',
-                    'estimated_ready_time',
-                    'order_status'
-                ]);
+            ->assertJsonStructure([
+                'order_id',
+                'total_price',
+                'pickup_datetime',
+                'estimated_ready_time',
+                'order_status',
+            ]);
     }
 
     /**
@@ -201,18 +201,18 @@ class MobileBurritoOrderingTest extends TestCase
         $response = $this->getJson('/api/production/capacity');
 
         $response->assertStatus(200)
-                ->assertJsonStructure([
-                    'saturday' => [
-                        'total_capacity',
-                        'remaining_capacity',
-                        'orders_filled'
-                    ],
-                    'sunday' => [
-                        'total_capacity',
-                        'remaining_capacity',
-                        'orders_filled'
-                    ]
-                ]);
+            ->assertJsonStructure([
+                'saturday' => [
+                    'total_capacity',
+                    'remaining_capacity',
+                    'orders_filled',
+                ],
+                'sunday' => [
+                    'total_capacity',
+                    'remaining_capacity',
+                    'orders_filled',
+                ],
+            ]);
 
         $capacity = $response->json();
 
@@ -230,17 +230,17 @@ class MobileBurritoOrderingTest extends TestCase
         $invalidOrder = [
             'ingredients' => [
                 'protein' => 'invalid_protein',
-                'rice' => 'spanish_rice'
-            ]
+                'rice' => 'spanish_rice',
+            ],
         ];
 
         $response = $this->postJson('/api/burrito/calculate-price', $invalidOrder);
 
         $response->assertStatus(422)
-                ->assertJsonStructure([
-                    'message',
-                    'errors'
-                ]);
+            ->assertJsonStructure([
+                'message',
+                'errors',
+            ]);
 
         // Verify mobile-friendly error messages
         $errorData = $response->json();
@@ -256,12 +256,12 @@ class MobileBurritoOrderingTest extends TestCase
         $response = $this->getJson('/api/business-hours');
 
         $response->assertStatus(200)
-                ->assertJsonStructure([
-                    'timezone',
-                    'current_time',
-                    'weekend_hours',
-                    'is_open'
-                ]);
+            ->assertJsonStructure([
+                'timezone',
+                'current_time',
+                'weekend_hours',
+                'is_open',
+            ]);
 
         $businessHours = $response->json();
         $this->assertEquals('America/Phoenix', $businessHours['timezone']);

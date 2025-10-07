@@ -24,7 +24,7 @@ class IngredientPortionTest extends TestCase
         $ingredients = BurritoTestHelper::createIngredientSet();
         $riceBeans = $ingredients['rice_beans'];
 
-        $beans = array_filter($riceBeans, fn($item) => str_contains(strtolower($item['name']), 'bean'));
+        $beans = array_filter($riceBeans, fn ($item) => str_contains(strtolower($item['name']), 'bean'));
 
         foreach ($beans as $bean) {
             $this->assertEquals(0.67, $bean['portion_size'],
@@ -38,7 +38,7 @@ class IngredientPortionTest extends TestCase
         $ingredients = BurritoTestHelper::createIngredientSet();
         $riceBeans = $ingredients['rice_beans'];
 
-        $rice = array_filter($riceBeans, fn($item) => str_contains(strtolower($item['name']), 'rice'));
+        $rice = array_filter($riceBeans, fn ($item) => str_contains(strtolower($item['name']), 'rice'));
 
         foreach ($rice as $riceItem) {
             $this->assertEquals(0.5, $riceItem['portion_size'],

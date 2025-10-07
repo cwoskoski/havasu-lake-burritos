@@ -95,12 +95,12 @@ trait MobileTesting
 
         if (isset($userAgents[$userAgent])) {
             return $this->withHeaders([
-                'User-Agent' => $userAgents[$userAgent]
+                'User-Agent' => $userAgents[$userAgent],
             ]);
         }
 
         return $this->withHeaders([
-            'User-Agent' => $userAgents['iPhone'] // Default to iPhone
+            'User-Agent' => $userAgents['iPhone'], // Default to iPhone
         ]);
     }
 

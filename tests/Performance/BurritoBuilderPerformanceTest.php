@@ -2,13 +2,14 @@
 
 namespace Tests\Performance;
 
-use Tests\TestCase;
-use Tests\Helpers\BurritoTestHelper;
 use Carbon\Carbon;
+use Tests\Helpers\BurritoTestHelper;
+use Tests\TestCase;
 
 class BurritoBuilderPerformanceTest extends TestCase
 {
     protected int $acceptableResponseTime = 200; // 200ms
+
     protected int $mobileAcceptableResponseTime = 300; // 300ms for mobile
 
     public function test_burrito_builder_page_load_performance()
@@ -73,7 +74,7 @@ class BurritoBuilderPerformanceTest extends TestCase
         $response = $this->post('/api/orders', [
             'customer_name' => 'Performance Test',
             'customer_email' => 'perf@test.com',
-            'burrito' => $burritoConfig
+            'burrito' => $burritoConfig,
         ]);
         $endTime = microtime(true);
 
@@ -185,7 +186,7 @@ class BurritoBuilderPerformanceTest extends TestCase
         $this->assertLessThan(
             $maxMemoryBytes,
             $memoryUsed,
-            "Burrito builder should use less than {$maxMemoryMB}MB memory, used " . round($memoryUsed / 1024 / 1024, 2) . "MB"
+            "Burrito builder should use less than {$maxMemoryMB}MB memory, used ".round($memoryUsed / 1024 / 1024, 2).'MB'
         );
     }
 
@@ -233,6 +234,7 @@ class BurritoBuilderPerformanceTest extends TestCase
         $endTime = microtime(true);
 
         $response->assertStatus(200);
+
         return ($endTime - $startTime) * 1000; // Return milliseconds
     }
 

@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('burritos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->json('ingredient_selections');
+            $table->decimal('total_calories', 6, 1)->nullable();
+            $table->decimal('total_cost', 8, 2)->nullable();
+            $table->text('special_instructions')->nullable();
             $table->timestamps();
+
+            $table->index(['order_id', 'created_at']);
         });
     }
 

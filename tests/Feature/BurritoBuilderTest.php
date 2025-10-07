@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
+use Tests\Helpers\BurritoTestHelper;
 use Tests\TestCase;
 use Tests\Traits\MobileTesting;
 use Tests\Traits\WeekendProductionTesting;
-use Tests\Helpers\BurritoTestHelper;
-use Carbon\Carbon;
 
 class BurritoBuilderTest extends TestCase
 {
@@ -44,8 +44,8 @@ class BurritoBuilderTest extends TestCase
             $response->assertStatus(200);
 
             // Should show progress indicator
-            $response->assertSee("Step " . ($index + 1));
-            $response->assertSee("of 5");
+            $response->assertSee('Step '.($index + 1));
+            $response->assertSee('of 5');
         }
     }
 
@@ -126,7 +126,7 @@ class BurritoBuilderTest extends TestCase
     {
         $this->withSession(['burrito_selections' => []])
             ->post('/burrito-builder/proteins', [
-                'selected' => ['Carnitas', 'Chicken']
+                'selected' => ['Carnitas', 'Chicken'],
             ])
             ->assertSessionHas('burrito_selections.proteins');
 
@@ -154,14 +154,16 @@ class BurritoBuilderTest extends TestCase
     protected function isOrderingAllowed(): bool
     {
         $response = $this->get('/burrito-builder');
+
         return $response->status() === 200 &&
-               !str_contains($response->getContent(), 'Ordering is only available on weekends');
+               ! str_contains($response->getContent(), 'Ordering is only available on weekends');
     }
 
     protected function canOrderBurrito(): bool
     {
         $response = $this->get('/api/availability');
         $data = $response->json();
+
         return $data['remaining_burritos'] > 0;
     }
 
@@ -169,7 +171,7 @@ class BurritoBuilderTest extends TestCase
     {
         // Simulate placing an order to test quota enforcement
         $this->post('/api/orders', [
-            'burrito' => BurritoTestHelper::createBurritoConfiguration()
+            'burrito' => BurritoTestHelper::createBurritoConfiguration(),
         ]);
     }
 
@@ -185,6 +187,7 @@ class BurritoBuilderTest extends TestCase
     protected function getRemainingBurritoCount(): int
     {
         $response = $this->get('/api/availability');
+
         return $response->json()['remaining_burritos'];
     }
 }

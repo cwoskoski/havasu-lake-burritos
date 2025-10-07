@@ -22,16 +22,4 @@ parameters:
         - node_modules/
 
     # Laravel specific configurations
-    checkMissingIterableValueType: true
-    checkGenericClassInNonGenericObjectType: true
     reportUnmatchedIgnoredErrors: false
-
-    # Burrito business domain specific ignores
-    dynamicConstantNames:
-        - WEEKEND_PRODUCTION_ENABLED
-        - MAX_DAILY_BURRITOS
-        - BURRITO_TRACK_STEPS
-
-    # Allow for Laravel magic methods
-    excludeAnalyses:
-        - missingType.iterableValue

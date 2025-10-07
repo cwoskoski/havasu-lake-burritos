@@ -24,7 +24,7 @@ class BurritoBuilderTest extends TestCase
             'beans' => 'black_beans',
             'toppings' => ['lettuce', 'tomatoes'],
             'salsa' => 'medium',
-            'creamy' => 'cheese'
+            'creamy' => 'cheese',
         ];
 
         // Mock the validation logic
@@ -41,7 +41,7 @@ class BurritoBuilderTest extends TestCase
         $burritoIngredients = [
             'protein' => 'chicken',
             'rice' => 'spanish_rice',
-            'beans' => 'black_beans'
+            'beans' => 'black_beans',
         ];
 
         $expectedPortions = [
@@ -83,7 +83,7 @@ class BurritoBuilderTest extends TestCase
             'rice' => 'spanish_rice',
             'beans' => 'black_beans',
             'toppings' => ['lettuce', 'tomatoes'],
-            'salsa' => 'medium'
+            'salsa' => 'medium',
         ];
 
         $expectedPrice = 12.00; // Base price for standard burrito
@@ -113,7 +113,7 @@ class BurritoBuilderTest extends TestCase
         $requiredKeys = ['protein', 'rice', 'beans'];
 
         foreach ($requiredKeys as $key) {
-            if (!isset($ingredients[$key])) {
+            if (! isset($ingredients[$key])) {
                 return false;
             }
         }
@@ -134,6 +134,7 @@ class BurritoBuilderTest extends TestCase
     private function isWeekendProductionDay(int $timestamp): bool
     {
         $dayOfWeek = (int) date('N', $timestamp); // 1 (Monday) to 7 (Sunday)
+
         return $dayOfWeek === 6 || $dayOfWeek === 7; // Saturday or Sunday
     }
 
@@ -152,7 +153,7 @@ class BurritoBuilderTest extends TestCase
         $allowedToppings = ['lettuce', 'tomatoes', 'onions', 'peppers', 'cilantro', 'jalapenos'];
 
         foreach ($toppings as $topping) {
-            if (!in_array($topping, $allowedToppings)) {
+            if (! in_array($topping, $allowedToppings)) {
                 return false;
             }
         }

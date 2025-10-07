@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests\Unit\Models;
 
 use App\Models\User;
-use Tests\TestCase;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
+use Tests\TestCase;
 
 /**
  * Unit tests for the User model with burrito business logic.

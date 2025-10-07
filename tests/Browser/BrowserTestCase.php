@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Browser;
 
-use Laravel\Dusk\TestCase as BaseTestCase;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Tests\Browser\CreatesApplication;
+use Laravel\Dusk\TestCase as BaseTestCase;
 
 /**
  * Base class for browser tests using Laravel Dusk.
@@ -79,7 +78,7 @@ abstract class BrowserTestCase extends BaseTestCase
     protected function assertMobileViewport($browser): void
     {
         $browser->assertPresent('meta[name="viewport"]')
-                ->assertAttribute('meta[name="viewport"]', 'content', 'width=device-width, initial-scale=1');
+            ->assertAttribute('meta[name="viewport"]', 'content', 'width=device-width, initial-scale=1');
     }
 
     /**
@@ -154,16 +153,16 @@ abstract class BrowserTestCase extends BaseTestCase
     protected function navigateBurritoTrack($browser): void
     {
         $browser->visit('/build-burrito')
-                ->assertSee('Build Your Burrito')
-                ->click('@protein-selection')
-                ->waitFor('@rice-beans-selection')
-                ->click('@rice-beans-selection')
-                ->waitFor('@fresh-toppings-selection')
-                ->click('@fresh-toppings-selection')
-                ->waitFor('@salsas-selection')
-                ->click('@salsas-selection')
-                ->waitFor('@creamy-selection')
-                ->click('@creamy-selection')
-                ->waitFor('@order-summary');
+            ->assertSee('Build Your Burrito')
+            ->click('@protein-selection')
+            ->waitFor('@rice-beans-selection')
+            ->click('@rice-beans-selection')
+            ->waitFor('@fresh-toppings-selection')
+            ->click('@fresh-toppings-selection')
+            ->waitFor('@salsas-selection')
+            ->click('@salsas-selection')
+            ->waitFor('@creamy-selection')
+            ->click('@creamy-selection')
+            ->waitFor('@order-summary');
     }
 }

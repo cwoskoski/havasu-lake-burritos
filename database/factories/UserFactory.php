@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -196,7 +196,7 @@ class UserFactory extends Factory
     {
         // Generate a US phone number in E.164 format
         $areaCode = $this->faker->randomElement([
-            '555', '602', '623', '480', '520', '928' // Arizona area codes + test
+            '555', '602', '623', '480', '520', '928', // Arizona area codes + test
         ]);
 
         $exchange = $this->faker->numberBetween(200, 999);
@@ -211,6 +211,7 @@ class UserFactory extends Factory
     private function generateSequentialPhone(int $index): string
     {
         $baseNumber = 5551000000 + $index;
+
         return "+1{$baseNumber}";
     }
 }

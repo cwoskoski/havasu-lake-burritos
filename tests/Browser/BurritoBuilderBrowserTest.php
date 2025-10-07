@@ -2,11 +2,11 @@
 
 namespace Tests\Browser;
 
+use Carbon\Carbon;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
-use Tests\Traits\MobileTesting;
 use Tests\Helpers\BurritoTestHelper;
-use Carbon\Carbon;
+use Tests\Traits\MobileTesting;
 
 class BurritoBuilderBrowserTest extends DuskTestCase
 {
@@ -166,7 +166,7 @@ class BurritoBuilderBrowserTest extends DuskTestCase
             // Simulate slow 3G network
             $browser->driver->getCommandExecutor()->execute([
                 'cmd' => 'Network.enable',
-                'params' => []
+                'params' => [],
             ]);
 
             $browser->driver->getCommandExecutor()->execute([
@@ -176,8 +176,8 @@ class BurritoBuilderBrowserTest extends DuskTestCase
                     'latency' => 300,
                     'downloadThroughput' => 1.5 * 1024 * 1024 / 8, // 1.5 Mbps
                     'uploadThroughput' => 750 * 1024 / 8, // 750 Kbps
-                    'connectionType' => 'cellular3g'
-                ]
+                    'connectionType' => 'cellular3g',
+                ],
             ]);
 
             $startTime = microtime(true);
@@ -229,7 +229,7 @@ class BurritoBuilderBrowserTest extends DuskTestCase
             // Go offline
             $browser->driver->getCommandExecutor()->execute([
                 'cmd' => 'Network.enable',
-                'params' => []
+                'params' => [],
             ]);
             $browser->driver->getCommandExecutor()->execute([
                 'cmd' => 'Network.emulateNetworkConditions',
@@ -237,8 +237,8 @@ class BurritoBuilderBrowserTest extends DuskTestCase
                     'offline' => true,
                     'latency' => 0,
                     'downloadThroughput' => 0,
-                    'uploadThroughput' => 0
-                ]
+                    'uploadThroughput' => 0,
+                ],
             ]);
 
             // Should show offline message
@@ -254,7 +254,7 @@ class BurritoBuilderBrowserTest extends DuskTestCase
         $this->post('/api/orders', [
             'customer_name' => 'Browser Test Customer',
             'customer_email' => 'browser@test.com',
-            'burrito' => $burritoConfig
+            'burrito' => $burritoConfig,
         ]);
     }
 }

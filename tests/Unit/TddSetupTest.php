@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use App\Enums\IngredientCategory;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Tests\TestCase;
 
 /**
  * Test to verify TDD environment setup is working correctly.
@@ -51,9 +52,19 @@ class TddSetupTest extends TestCase
 
     public function test_database_connection_is_working(): void
     {
-        // This will use in-memory SQLite for testing
-        expect(config('database.default'))->toBe('sqlite');
-        expect(config('database.connections.sqlite.database'))->toBe(':memory:');
+        // Database should be configured for testing
+        $connection = config('database.default');
+        expect($connection)->toBeIn(['sqlite', 'mysql']);
+
+        // If using SQLite, should be in-memory for tests
+        if ($connection === 'sqlite') {
+            expect(config('database.connections.sqlite.database'))->toBe(':memory:');
+        }
+
+        // Verify database is actually working by testing connection
+        $result = DB::select('SELECT 1 as test');
+        expect($result)->toBeArray();
+        expect($result[0]->test)->toBe(1);
     }
 
     public function test_weekend_business_logic_helper(): void

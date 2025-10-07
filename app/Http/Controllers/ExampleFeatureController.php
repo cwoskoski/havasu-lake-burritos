@@ -37,7 +37,7 @@ class ExampleFeatureController extends Controller
         $advancedFeatures = $this->featureService->allEnabled([
             'nutritional_info',
             'allergen_warnings',
-            'portion_calculator'
+            'portion_calculator',
         ]);
 
         return view('burrito-builder', compact(
@@ -58,15 +58,15 @@ class ExampleFeatureController extends Controller
 
         if (empty($paymentMethods)) {
             return response()->json([
-                'error' => 'No payment methods available'
+                'error' => 'No payment methods available',
             ], 503);
         }
 
         $requestedMethod = $request->input('payment_method');
 
-        if (!isset($paymentMethods[$requestedMethod])) {
+        if (! isset($paymentMethods[$requestedMethod])) {
             return response()->json([
-                'error' => 'Payment method not available'
+                'error' => 'Payment method not available',
             ], 400);
         }
 
@@ -148,8 +148,8 @@ class ExampleFeatureController extends Controller
 
         return view('notification-settings', [
             'sms_enabled' => $smsSettings['enabled'],
-            'can_opt_out_confirmations' => !$smsSettings['order_confirmations'],
-            'can_opt_out_reminders' => !$smsSettings['pickup_reminders'],
+            'can_opt_out_confirmations' => ! $smsSettings['order_confirmations'],
+            'can_opt_out_reminders' => ! $smsSettings['pickup_reminders'],
             'marketing_available' => $smsSettings['marketing_messages'],
         ]);
     }
@@ -164,10 +164,10 @@ class ExampleFeatureController extends Controller
             'admin_dashboard',
             'ingredient_management',
             'analytics_dashboard',
-            'customer_management'
+            'customer_management',
         ]);
 
-        if (!$adminFeatures) {
+        if (! $adminFeatures) {
             abort(404);
         }
 

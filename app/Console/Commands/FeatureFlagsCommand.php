@@ -32,6 +32,7 @@ class FeatureFlagsCommand extends Command
 
         if (empty($features)) {
             $this->error('No feature flags configured.');
+
             return self::FAILURE;
         }
 
@@ -47,7 +48,7 @@ class FeatureFlagsCommand extends Command
             $displayValue = $this->getDisplayValue($value, $isEnabled);
 
             // Apply filters
-            if ($this->option('enabled') && !$isEnabled) {
+            if ($this->option('enabled') && ! $isEnabled) {
                 continue;
             }
 
@@ -55,7 +56,7 @@ class FeatureFlagsCommand extends Command
                 continue;
             }
 
-            if ($this->option('complex') && !is_array($value)) {
+            if ($this->option('complex') && ! is_array($value)) {
                 continue;
             }
 
@@ -71,6 +72,7 @@ class FeatureFlagsCommand extends Command
 
         if (empty($rows)) {
             $this->warn('No features match the specified filters.');
+
             return self::SUCCESS;
         }
 
@@ -97,7 +99,7 @@ class FeatureFlagsCommand extends Command
         }
 
         if (is_array($value)) {
-            if (!$isEnabled && isset($value['enabled'])) {
+            if (! $isEnabled && isset($value['enabled'])) {
                 return 'disabled';
             }
 
@@ -106,10 +108,10 @@ class FeatureFlagsCommand extends Command
                 if ($key === 'enabled') {
                     continue;
                 }
-                $summary[] = "{$key}: " . (is_bool($val) ? ($val ? 'true' : 'false') : $val);
+                $summary[] = "{$key}: ".(is_bool($val) ? ($val ? 'true' : 'false') : $val);
             }
 
-            return implode(', ', array_slice($summary, 0, 2)) . (count($summary) > 2 ? '...' : '');
+            return implode(', ', array_slice($summary, 0, 2)).(count($summary) > 2 ? '...' : '');
         }
 
         return (string) $value;

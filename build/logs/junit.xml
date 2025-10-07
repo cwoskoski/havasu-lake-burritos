@@ -1,68 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Tests\Unit\TddSetupTest" file="Tdd Setup (Tests\Unit\TddSetup)" tests="15" assertions="34" errors="2" failures="1" skipped="0" time="3.676028">
-    <testcase name="Feature flags are configured" file="Tdd Setup (Tests\Unit\TddSetup)::Feature flags are configured" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="3.454018"/>
-    <testcase name="Mobile testing data is available" file="Tdd Setup (Tests\Unit\TddSetup)::Mobile testing data is available" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="5" time="0.013434"/>
-    <testcase name="Pest expectations are working" file="Tdd Setup (Tests\Unit\TddSetup)::Pest expectations are working" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="3" time="0.014649"/>
-    <testcase name="Laravel framework is loaded" file="Tdd Setup (Tests\Unit\TddSetup)::Laravel framework is loaded" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="1" time="0.012503"/>
-    <testcase name="Custom expectations are loaded" file="Tdd Setup (Tests\Unit\TddSetup)::Custom expectations are loaded" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="0.016379">
-      <error type="Carbon\Exceptions\UnknownMethodException">Custom expectations are loadedCarbon\Exceptions\UnknownMethodException: Method assertTrue does not exist.
-at vendor/nesbot/carbon/src/Carbon/Traits/Date.php:2945
-at vendor/nesbot/carbon/src/Carbon/Traits/Mixin.php:187
-at vendor/nesbot/carbon/src/Carbon/Traits/Date.php:2932
-at vendor/nesbot/carbon/src/Carbon/Traits/Date.php:2599
-at tests/Pest.php:68
-at tests/Unit/TddSetupTest.php:81</error>
-    </testcase>
-    <testcase name="Timezone is configured for arizona" file="Tdd Setup (Tests\Unit\TddSetup)::Timezone is configured for arizona" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="0.012834"/>
-    <testcase name="Performance helpers are available" file="Tdd Setup (Tests\Unit\TddSetup)::Performance helpers are available" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="3" time="0.013132"/>
-    <testcase name="Burrito business constants are set" file="Tdd Setup (Tests\Unit\TddSetup)::Burrito business constants are set" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="3" time="0.014749"/>
-    <testcase name="Ingredient category enum is available" file="Tdd Setup (Tests\Unit\TddSetup)::Ingredient category enum is available" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="3" time="0.014506"/>
-    <testcase name="Carbon date library is working" file="Tdd Setup (Tests\Unit\TddSetup)::Carbon date library is working" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="0.016148"/>
-    <testcase name="Database connection is working" file="Tdd Setup (Tests\Unit\TddSetup)::Database connection is working" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="1" time="0.014154">
-      <failure type="PHPUnit\Framework\ExpectationFailedException">Database connection is workingFailed asserting that two strings are identical.
-at tests/Unit/TddSetupTest.php:55</failure>
-    </testcase>
-    <testcase name="Test factories are working" file="Tdd Setup (Tests\Unit\TddSetup)::Test factories are working" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="0.035246">
-      <error type="Illuminate\Database\UniqueConstraintViolationException">Test factories are workingIlluminate\Database\UniqueConstraintViolationException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'spanish-rice' for key 'ingredients.ingredients_slug_unique' (Connection: mysql, SQL: insert into `ingredients` (`name`, `slug`, `category`, `description`, `standard_portion_oz`, `calories_per_oz`, `allergens`, `dietary_info`, `color_hex`, `sort_order`, `is_active`, `updated_at`, `created_at`) values (Spanish Rice, spanish-rice, rice_beans, Fluffy and perfectly seasoned, 4, 33, [], ["gluten_free"], #8B4513, 89, 1, 2025-10-06 16:39:12, 2025-10-06 16:39:12))
-at vendor/laravel/framework/src/Illuminate/Database/MySqlConnection.php:53
-at vendor/laravel/framework/src/Illuminate/Database/Connection.php:811
-at vendor/laravel/framework/src/Illuminate/Database/Connection.php:778
-at vendor/laravel/framework/src/Illuminate/Database/MySqlConnection.php:42
-at vendor/laravel/framework/src/Illuminate/Database/Query/Processors/MySqlProcessor.php:35
-at vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3853
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:2235
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1436
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1401
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1240
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:370
-at vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:271
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:365
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:325
-at tests/Pest.php:138
-at tests/Unit/TddSetupTest.php:109
-Caused by
-PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'spanish-rice' for key 'ingredients.ingredients_slug_unique'
-
-at vendor/laravel/framework/src/Illuminate/Database/MySqlConnection.php:53
-at vendor/laravel/framework/src/Illuminate/Database/Connection.php:811
-at vendor/laravel/framework/src/Illuminate/Database/Connection.php:778
-at vendor/laravel/framework/src/Illuminate/Database/MySqlConnection.php:42
-at vendor/laravel/framework/src/Illuminate/Database/Query/Processors/MySqlProcessor.php:35
-at vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php:3853
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:2235
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1436
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1401
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1240
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:370
-at vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php:271
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:365
-at vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php:325
-at tests/Pest.php:138
-at tests/Unit/TddSetupTest.php:109</error>
-    </testcase>
-    <testcase name="Tdd workflow is ready" file="Tdd Setup (Tests\Unit\TddSetup)::Tdd workflow is ready" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="1" time="0.014750"/>
-    <testcase name="Weekend business logic helper" file="Tdd Setup (Tests\Unit\TddSetup)::Weekend business logic helper" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="0.014716"/>
-    <testcase name="Php version meets requirements" file="Tdd Setup (Tests\Unit\TddSetup)::Php version meets requirements" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="0.014810"/>
+  <testsuite name="CLI Arguments" tests="33" assertions="96" errors="0" failures="0" skipped="0" time="4.123742">
+    <testsuite name="Tests\Unit\IngredientBusinessLogicTest" file="tests/Unit/IngredientBusinessLogicTest.php" tests="18" assertions="48" errors="0" failures="0" skipped="0" time="3.897235">
+      <testcase name="`Ingredient Nutritional Information` → it checks dietary restrictions compliance" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Nutritional Information` → it checks dietary restrictions compliance" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="3" time="3.668646"/>
+      <testcase name="`Ingredient Nutritional Information` → it identifies allergen concerns" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Nutritional Information` → it identifies allergen concerns" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="3" time="0.013229"/>
+      <testcase name="`Ingredient Cost Calculations` → it provides cost per serving with correct precision" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Cost Calculations` → it provides cost per serving with correct precision" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="1" time="0.013995"/>
+      <testcase name="`Ingredient Portion Management` → it calculates portion calories correctly" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Portion Management` → it calculates portion calories correctly" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="3" time="0.014979"/>
+      <testcase name="`Ingredient Category Validation` → it returns appropriate max portion size by category" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Category Validation` → it returns appropriate max portion size by category" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="3" time="0.012581"/>
+      <testcase name="`Ingredient Cost Calculations` → it applies premium pricing multiplier" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Cost Calculations` → it applies premium pricing multiplier" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="1" time="0.013425"/>
+      <testcase name="`Ingredient Business Rules` → it provides category description and usage guidelines" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Business Rules` → it provides category description and usage guidelines" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="2" time="0.013907"/>
+      <testcase name="`Ingredient Category Validation` → it validates portion size limits per category" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Category Validation` → it validates portion size limits per category" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="4" time="0.014689"/>
+      <testcase name="`Ingredient Business Rules` → it enforces protein category business rules" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Business Rules` → it enforces protein category business rules" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="2" time="0.013214"/>
+      <testcase name="`Ingredient Availability Logic` → it provides availability status with reasons" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Availability Logic` → it provides availability status with reasons" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="2" time="0.014638"/>
+      <testcase name="`Ingredient Portion Management` → it provides category-specific standard multipliers" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Portion Management` → it provides category-specific standard multipliers" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="5" time="0.014714"/>
+      <testcase name="`Ingredient Portion Management` → it validates portion multipliers within business rules" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Portion Management` → it validates portion multipliers within business rules" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="5" time="0.015213"/>
+      <testcase name="`Ingredient Business Rules` → it enforces salsa category business rules" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Business Rules` → it enforces salsa category business rules" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="2" time="0.013624"/>
+      <testcase name="`Ingredient Cost Calculations` → it calculates base cost for standard ingredients" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Cost Calculations` → it calculates base cost for standard ingredients" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="1" time="0.013193"/>
+      <testcase name="`Ingredient Cost Calculations` → it calculates portion-based costs" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Cost Calculations` → it calculates portion-based costs" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="2" time="0.012086"/>
+      <testcase name="`Ingredient Portion Management` → it calculates portion weight accurately based on multiplier" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Portion Management` → it calculates portion weight accurately based on multiplier" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="3" time="0.011759"/>
+      <testcase name="`Ingredient Nutritional Information` → it provides nutritional facts per standard serving" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Nutritional Information` → it provides nutritional facts per standard serving" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="4" time="0.011487"/>
+      <testcase name="`Ingredient Availability Logic` → it checks availability based on active status" file="tests/Unit/IngredientBusinessLogicTest.php::`Ingredient Availability Logic` → it checks availability based on active status" class="Tests\Unit\IngredientBusinessLogicTest" classname="Tests.Unit.IngredientBusinessLogicTest" assertions="2" time="0.011855"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\TddSetupTest" file="Tdd Setup (Tests\Unit\TddSetup)" tests="15" assertions="48" errors="0" failures="0" skipped="0" time="0.226508">
+      <testcase name="Carbon date library is working" file="Tdd Setup (Tests\Unit\TddSetup)::Carbon date library is working" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="0.021829"/>
+      <testcase name="Weekend business logic helper" file="Tdd Setup (Tests\Unit\TddSetup)::Weekend business logic helper" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="0.016909"/>
+      <testcase name="Timezone is configured for arizona" file="Tdd Setup (Tests\Unit\TddSetup)::Timezone is configured for arizona" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="0.013075"/>
+      <testcase name="Performance helpers are available" file="Tdd Setup (Tests\Unit\TddSetup)::Performance helpers are available" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="3" time="0.012345"/>
+      <testcase name="Mobile testing data is available" file="Tdd Setup (Tests\Unit\TddSetup)::Mobile testing data is available" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="5" time="0.011570"/>
+      <testcase name="Custom expectations are loaded" file="Tdd Setup (Tests\Unit\TddSetup)::Custom expectations are loaded" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="9" time="0.012328"/>
+      <testcase name="Tdd workflow is ready" file="Tdd Setup (Tests\Unit\TddSetup)::Tdd workflow is ready" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="1" time="0.012211"/>
+      <testcase name="Ingredient category enum is available" file="Tdd Setup (Tests\Unit\TddSetup)::Ingredient category enum is available" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="3" time="0.012023"/>
+      <testcase name="Feature flags are configured" file="Tdd Setup (Tests\Unit\TddSetup)::Feature flags are configured" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="0.011188"/>
+      <testcase name="Pest expectations are working" file="Tdd Setup (Tests\Unit\TddSetup)::Pest expectations are working" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="3" time="0.013590"/>
+      <testcase name="Php version meets requirements" file="Tdd Setup (Tests\Unit\TddSetup)::Php version meets requirements" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="2" time="0.013876"/>
+      <testcase name="Laravel framework is loaded" file="Tdd Setup (Tests\Unit\TddSetup)::Laravel framework is loaded" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="1" time="0.012829"/>
+      <testcase name="Database connection is working" file="Tdd Setup (Tests\Unit\TddSetup)::Database connection is working" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="3" time="0.012653"/>
+      <testcase name="Test factories are working" file="Tdd Setup (Tests\Unit\TddSetup)::Test factories are working" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="7" time="0.037997"/>
+      <testcase name="Burrito business constants are set" file="Tdd Setup (Tests\Unit\TddSetup)::Burrito business constants are set" class="Tests\Unit\TddSetupTest" classname="Tests.Unit.TddSetupTest" assertions="3" time="0.012084"/>
+    </testsuite>
   </testsuite>
 </testsuites>

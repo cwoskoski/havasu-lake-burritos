@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\User;
-use App\Models\Ingredient;
 use App\Enums\IngredientCategory;
-use Tests\Helpers\BurritoTestHelper;
+use App\Models\Ingredient;
+use App\Models\User;
 use Carbon\Carbon;
+use Tests\Helpers\BurritoTestHelper;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,17 +65,13 @@ expect()->extend('toBeValidIngredientCategory', function () {
 });
 
 expect()->extend('toBeWeekendDate', function () {
-    return $this->assertTrue(
-        $this->value instanceof Carbon && $this->value->isWeekend(),
-        'Expected date to be a weekend'
-    );
+    return $this->toBeInstanceOf(Carbon::class)
+        ->and($this->value->isWeekend())->toBeTrue('Expected date to be a weekend');
 });
 
 expect()->extend('toBeWeekdayDate', function () {
-    return $this->assertTrue(
-        $this->value instanceof Carbon && $this->value->isWeekday(),
-        'Expected date to be a weekday'
-    );
+    return $this->toBeInstanceOf(Carbon::class)
+        ->and($this->value->isWeekday())->toBeTrue('Expected date to be a weekday');
 });
 
 expect()->extend('toHaveValidPortionSize', function () {
@@ -87,11 +83,20 @@ expect()->extend('toBeMobileOptimized', function () {
     $response = $this->value;
     $response->assertSee('viewport', false);
     $response->assertSee('width=device-width', false);
+
     return $this;
 });
 
 expect()->extend('toHaveValidPhoneNumber', function () {
     return $this->toMatch('/^\+?[1-9]\d{1,14}$/'); // E.164 format
+});
+
+expect()->extend('toBeBefore', function ($date) {
+    return $this->toBeLessThan($date);
+});
+
+expect()->extend('toBeAfter', function ($date) {
+    return $this->toBeGreaterThan($date);
 });
 
 /*
@@ -149,6 +154,7 @@ function travelToWeekend(int $weeksFromNow = 0): Carbon
 {
     $saturday = BurritoTestHelper::getWeekendDates($weeksFromNow)->first();
     Carbon::setTestNow($saturday);
+
     return $saturday;
 }
 
@@ -159,6 +165,7 @@ function travelToWeekday(int $weeksFromNow = 0): Carbon
 {
     $monday = BurritoTestHelper::getWeekdayDates($weeksFromNow)->first();
     Carbon::setTestNow($monday);
+
     return $monday;
 }
 
@@ -171,7 +178,7 @@ function mockTwilioService(): void
     $mock = Mockery::mock('alias:Twilio\Rest\Client');
     $mock->shouldReceive('messages')
         ->andReturn(Mockery::mock([
-            'create' => Mockery::mock(['sid' => 'test_message_sid'])
+            'create' => Mockery::mock(['sid' => 'test_message_sid']),
         ]));
 }
 

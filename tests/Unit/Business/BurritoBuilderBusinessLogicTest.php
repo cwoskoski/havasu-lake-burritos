@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Business;
 
-use App\Models\Ingredient;
 use App\Enums\IngredientCategory;
-use Tests\TestCase;
+use App\Models\Ingredient;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * Unit tests for burrito building business logic.
@@ -369,7 +369,6 @@ class BurritoBuilderBusinessLogicTest extends TestCase
     /**
      * Helper methods for testing business logic
      */
-
     protected function getBurritoTrackSteps(): array
     {
         return ['proteins', 'rice_beans', 'fresh_toppings', 'salsas', 'creamy'];

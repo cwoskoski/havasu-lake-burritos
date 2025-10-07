@@ -3,8 +3,8 @@
 namespace Tests\Traits;
 
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Queue;
 use Mockery;
 use Mockery\MockInterface;
 
@@ -21,6 +21,7 @@ trait ServiceTesting
     {
         $mock = Mockery::mock($serviceClass);
         $this->app->instance($serviceClass, $mock);
+
         return $mock;
     }
 
@@ -57,6 +58,7 @@ trait ServiceTesting
                         return false;
                     }
                 }
+
                 return true;
             });
         }
@@ -81,6 +83,7 @@ trait ServiceTesting
                         return false;
                     }
                 }
+
                 return true;
             });
         }
@@ -119,6 +122,7 @@ trait ServiceTesting
         }
 
         $this->app->instance("App\\Services\\{$serviceName}", $mock);
+
         return $mock;
     }
 
@@ -156,7 +160,7 @@ trait ServiceTesting
     /**
      * Assert that a service handles errors gracefully.
      */
-    protected function assertServiceErrorHandling(callable $serviceCall, string $expectedExceptionClass = null): void
+    protected function assertServiceErrorHandling(callable $serviceCall, ?string $expectedExceptionClass = null): void
     {
         $exceptionThrown = false;
         $actualException = null;
@@ -177,12 +181,12 @@ trait ServiceTesting
             $this->assertInstanceOf(
                 $expectedExceptionClass,
                 $actualException,
-                "Wrong exception type thrown"
+                'Wrong exception type thrown'
             );
         } else {
             $this->assertFalse(
                 $exceptionThrown,
-                "Unexpected exception thrown: " . ($actualException ? $actualException->getMessage() : 'Unknown')
+                'Unexpected exception thrown: '.($actualException ? $actualException->getMessage() : 'Unknown')
             );
         }
     }
@@ -197,7 +201,7 @@ trait ServiceTesting
             try {
                 $serviceCall();
             } catch (\Exception $e) {
-                $this->fail("Service call failed on attempt {$i}: " . $e->getMessage());
+                $this->fail("Service call failed on attempt {$i}: ".$e->getMessage());
             }
         }
 
@@ -269,7 +273,7 @@ trait ServiceTesting
     /**
      * Assert that a service properly logs important events.
      */
-    protected function assertServiceLogging(callable $serviceCall, string $expectedLogLevel, string $expectedMessage = null): void
+    protected function assertServiceLogging(callable $serviceCall, string $expectedLogLevel, ?string $expectedMessage = null): void
     {
         // This would integrate with log testing to verify proper logging
         // Implementation depends on how you want to test logging
@@ -312,6 +316,7 @@ trait ServiceTesting
                         return true;
                     }
                 }
+
                 return false;
             },
         ]);

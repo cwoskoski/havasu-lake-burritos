@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Register Feature Service as singleton
         $this->app->singleton(FeatureService::class, function ($app) {
-            return new FeatureService();
+            return new FeatureService;
         });
 
         // Load feature flag helper functions

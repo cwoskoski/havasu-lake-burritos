@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
-use App\Models\Ingredient;
 use App\Enums\IngredientCategory;
-use Tests\TestCase;
+use App\Models\Ingredient;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * Unit tests for the Ingredient model.

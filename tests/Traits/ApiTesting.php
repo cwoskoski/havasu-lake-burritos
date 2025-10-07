@@ -19,7 +19,7 @@ trait ApiTesting
         $response->assertStatus($expectedStatus);
         $response->assertHeader('Content-Type', 'application/json');
 
-        if (!empty($expectedStructure)) {
+        if (! empty($expectedStructure)) {
             $response->assertJsonStructure($expectedStructure);
         }
     }
@@ -45,7 +45,7 @@ trait ApiTesting
             ],
         ]);
 
-        if (!empty($expectedMeta)) {
+        if (! empty($expectedMeta)) {
             foreach ($expectedMeta as $key => $value) {
                 $response->assertJsonPath("meta.{$key}", $value);
             }
@@ -55,12 +55,12 @@ trait ApiTesting
     /**
      * Assert that API error response has proper error structure.
      */
-    protected function assertApiError(TestResponse $response, int $expectedStatus, string $expectedMessage = null): void
+    protected function assertApiError(TestResponse $response, int $expectedStatus, ?string $expectedMessage = null): void
     {
         $response->assertStatus($expectedStatus);
         $response->assertJsonStructure([
             'message',
-            'errors' => []
+            'errors' => [],
         ]);
 
         if ($expectedMessage) {
@@ -76,7 +76,7 @@ trait ApiTesting
         $response->assertStatus(422);
         $response->assertJsonStructure([
             'message',
-            'errors'
+            'errors',
         ]);
 
         foreach ($expectedFields as $field) {
@@ -133,7 +133,7 @@ trait ApiTesting
         $response->assertStatus(429);
         $response->assertJsonStructure([
             'message',
-            'retry_after'
+            'retry_after',
         ]);
     }
 
@@ -160,7 +160,7 @@ trait ApiTesting
         // Include guest phone verification in the request
         $guestData = array_merge($orderData, [
             'guest_phone' => '+15551234567',
-            'phone_verified' => true
+            'phone_verified' => true,
         ]);
 
         $response = $this->json('POST', $endpoint, $guestData);
@@ -169,8 +169,8 @@ trait ApiTesting
             'data' => [
                 'id',
                 'guest_phone',
-                'status'
-            ]
+                'status',
+            ],
         ]);
     }
 
@@ -215,10 +215,10 @@ trait ApiTesting
                     'availability_info' => [
                         'week_start',
                         'week_end',
-                        'remaining_quantity'
-                    ]
-                ]
-            ]
+                        'remaining_quantity',
+                    ],
+                ],
+            ],
         ]);
 
         // Verify that only available ingredients are marked as available
@@ -239,7 +239,7 @@ trait ApiTesting
         $response->assertStatus(422);
 
         // Should validate required categories
-        if (!isset($invalidBurrito['proteins'])) {
+        if (! isset($invalidBurrito['proteins'])) {
             $response->assertJsonValidationErrors('proteins');
         }
 

@@ -2,10 +2,10 @@
 
 namespace Tests\Integration;
 
+use Carbon\Carbon;
+use Tests\Helpers\BurritoTestHelper;
 use Tests\TestCase;
 use Tests\Traits\WeekendProductionTesting;
-use Tests\Helpers\BurritoTestHelper;
-use Carbon\Carbon;
 
 class WeekendProductionTest extends TestCase
 {
@@ -88,7 +88,7 @@ class WeekendProductionTest extends TestCase
                 'remaining_burritos',
                 'max_burritos',
                 'ordering_enabled',
-                'is_weekend'
+                'is_weekend',
             ]);
 
         $data = $response->json();
@@ -144,6 +144,7 @@ class WeekendProductionTest extends TestCase
     protected function isOrderingAllowed(): bool
     {
         $response = $this->get('/api/availability');
+
         return $response->json()['ordering_enabled'] ?? false;
     }
 
@@ -151,6 +152,7 @@ class WeekendProductionTest extends TestCase
     {
         $response = $this->get('/api/availability');
         $data = $response->json();
+
         return $data['ordering_enabled'] && $data['remaining_burritos'] > 0;
     }
 
@@ -160,7 +162,7 @@ class WeekendProductionTest extends TestCase
         $this->post('/api/orders', [
             'customer_name' => 'Test Customer',
             'customer_email' => 'test@example.com',
-            'burrito' => $burritoConfig
+            'burrito' => $burritoConfig,
         ]);
     }
 
@@ -176,6 +178,7 @@ class WeekendProductionTest extends TestCase
     protected function getRemainingBurritoCount(): int
     {
         $response = $this->get('/api/availability');
+
         return $response->json()['remaining_burritos'];
     }
 }

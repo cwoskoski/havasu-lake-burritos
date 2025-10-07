@@ -34,7 +34,7 @@ class FeatureService
      */
     public function disabled(string $feature): bool
     {
-        return !$this->enabled($feature);
+        return ! $this->enabled($feature);
     }
 
     /**
@@ -119,7 +119,7 @@ class FeatureService
     {
         $config = $this->config('payment_methods', []);
 
-        if (!($config['enabled'] ?? false)) {
+        if (! ($config['enabled'] ?? false)) {
             return [];
         }
 

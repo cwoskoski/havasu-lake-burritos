@@ -114,7 +114,9 @@ class BurritoTestHelper
         $portions = [];
 
         foreach ($burritoConfig as $category => $selectedItems) {
-            if ($category === 'tortilla') continue;
+            if ($category === 'tortilla') {
+                continue;
+            }
 
             foreach ($selectedItems as $itemName) {
                 $ingredient = collect($ingredients[$category])
@@ -123,7 +125,7 @@ class BurritoTestHelper
                 if ($ingredient) {
                     $portions[$itemName] = [
                         'amount' => $ingredient['portion_size'],
-                        'unit' => $ingredient['unit']
+                        'unit' => $ingredient['unit'],
                     ];
                 }
             }

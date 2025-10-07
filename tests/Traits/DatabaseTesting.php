@@ -2,9 +2,9 @@
 
 namespace Tests\Traits;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\QueryException;
 
 /**
  * Trait for database-specific testing utilities and assertions.
@@ -92,7 +92,7 @@ trait DatabaseTesting
         $parentId = DB::table($parentTable)->where($data['parent'])->value('id');
         $this->assertDatabaseHas($childTable, [
             $data['foreign_key'] => $parentId,
-            ...$data['child']
+            ...$data['child'],
         ]);
     }
 
@@ -160,7 +160,7 @@ trait DatabaseTesting
                 $this->assertInstanceOf($modelClass, $saved);
                 $this->assertTrue($saved->exists);
             } catch (QueryException $e) {
-                $this->fail("Factory for {$modelClass} created invalid data: " . $e->getMessage());
+                $this->fail("Factory for {$modelClass} created invalid data: ".$e->getMessage());
             }
         }
     }
@@ -224,7 +224,7 @@ trait DatabaseTesting
 
         $database = DB::getDatabaseName();
 
-        return DB::select("
+        return DB::select('
             SELECT
                 COLUMN_NAME as `column`,
                 REFERENCED_TABLE_NAME as referenced_table,
@@ -234,7 +234,7 @@ trait DatabaseTesting
                 TABLE_SCHEMA = ?
                 AND TABLE_NAME = ?
                 AND REFERENCED_TABLE_NAME IS NOT NULL
-        ", [$database, $table]);
+        ', [$database, $table]);
     }
 
     /**

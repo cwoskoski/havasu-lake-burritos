@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Services\FeatureService;
 use Illuminate\Support\Facades\App;
 
-if (!function_exists('feature')) {
+if (! function_exists('feature')) {
     /**
      * Check if a feature is enabled.
      */
@@ -15,7 +15,7 @@ if (!function_exists('feature')) {
     }
 }
 
-if (!function_exists('feature_config')) {
+if (! function_exists('feature_config')) {
     /**
      * Get feature configuration.
      */
@@ -25,7 +25,7 @@ if (!function_exists('feature_config')) {
     }
 }
 
-if (!function_exists('feature_disabled')) {
+if (! function_exists('feature_disabled')) {
     /**
      * Check if a feature is disabled.
      */
@@ -35,7 +35,7 @@ if (!function_exists('feature_disabled')) {
     }
 }
 
-if (!function_exists('features_enabled')) {
+if (! function_exists('features_enabled')) {
     /**
      * Check if all provided features are enabled.
      */
@@ -45,7 +45,7 @@ if (!function_exists('features_enabled')) {
     }
 }
 
-if (!function_exists('any_feature_enabled')) {
+if (! function_exists('any_feature_enabled')) {
     /**
      * Check if any of the provided features are enabled.
      */

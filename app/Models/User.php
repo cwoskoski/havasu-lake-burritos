@@ -60,7 +60,7 @@ class User extends Authenticatable
      */
     public function isPhoneVerified(): bool
     {
-        return !is_null($this->phone_verified_at);
+        return ! is_null($this->phone_verified_at);
     }
 
     /**
@@ -93,7 +93,7 @@ class User extends Authenticatable
      */
     public function hasCompleteProfile(): bool
     {
-        return !is_null($this->phone) && $this->isPhoneVerified();
+        return ! is_null($this->phone) && $this->isPhoneVerified();
     }
 
     /**
@@ -101,7 +101,7 @@ class User extends Authenticatable
      */
     public function getFormattedPhoneAttribute(): ?string
     {
-        if (!$this->phone) {
+        if (! $this->phone) {
             return null;
         }
 

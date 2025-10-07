@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Business;
 
+use App\Enums\ProductionDay;
 use Carbon\Carbon;
 use Tests\TestCase;
-use App\Enums\ProductionDay;
 
 /**
  * Unit tests for weekend-only ordering business logic.
@@ -286,6 +286,7 @@ class WeekendOrderingTest extends TestCase
             if ($now->isSaturday()) {
                 return $now->next(Carbon::SUNDAY);
             }
+
             // If it's Sunday, suggest next Saturday
             return $now->next(Carbon::SATURDAY);
         }
@@ -300,6 +301,7 @@ class WeekendOrderingTest extends TestCase
     protected function isWithinOrderingWindow(): bool
     {
         $now = Carbon::now();
+
         return $now->isWeekend() && $now->hour >= 8 && $now->hour <= 17;
     }
 
@@ -309,6 +311,7 @@ class WeekendOrderingTest extends TestCase
     protected function getTimeUntilNextOrderingWindow(): \DateInterval
     {
         $next = $this->getNextAvailableOrderingDate()->setHour(9);
+
         return Carbon::now()->diff($next);
     }
 
@@ -322,6 +325,7 @@ class WeekendOrderingTest extends TestCase
         }
 
         $nextDate = $this->getNextAvailableOrderingDate();
+
         return "Ordering is only available on weekends. Next available: {$nextDate->format('l, M j')}";
     }
 

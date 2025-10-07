@@ -56,7 +56,7 @@ trait WeekendProductionTesting
         // Should prevent orders over limit
         $this->assertFalse(
             $this->canOrderBurrito(),
-            "Should prevent orders when daily limit reached"
+            'Should prevent orders when daily limit reached'
         );
     }
 

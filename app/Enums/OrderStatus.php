@@ -13,7 +13,7 @@ enum OrderStatus: string
 
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => 'Pending',
             self::CONFIRMED => 'Confirmed',
             self::IN_PREPARATION => 'In Preparation',
@@ -30,7 +30,7 @@ enum OrderStatus: string
 
     public function canTransitionTo(OrderStatus $status): bool
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => in_array($status, [self::CONFIRMED, self::CANCELLED]),
             self::CONFIRMED => in_array($status, [self::IN_PREPARATION, self::CANCELLED]),
             self::IN_PREPARATION => in_array($status, [self::READY, self::CANCELLED]),
