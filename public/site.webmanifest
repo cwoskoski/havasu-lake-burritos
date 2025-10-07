@@ -1,0 +1,51 @@
+{
+    "name": "Havasu Lake Burritos",
+    "short_name": "HLB",
+    "description": "Weekend burrito orders for Lake Havasu. Fresh, custom-built burritos made to order.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#2563eb",
+    "orientation": "portrait-primary",
+    "categories": ["food", "restaurants"],
+    "lang": "en-US",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/maskable-icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/maskable-icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/screenshot-mobile-1.png",
+            "sizes": "375x812",
+            "type": "image/png",
+            "form_factor": "narrow"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Build Burrito",
+            "url": "/burrito-builder",
+            "description": "Start building your custom burrito"
+        }
+    ]
+}

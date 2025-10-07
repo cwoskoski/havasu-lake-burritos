@@ -22,7 +22,7 @@ class BurritoFactory extends Factory
     {
         return [
             'order_id' => Order::factory(),
-            'price' => 1200, // $12.00
+            'price' => 900, // $9.00
             'custom_instructions' => $this->faker->optional(0.2)->sentence(),
             'created_at' => now(),
             'updated_at' => now(),
@@ -101,7 +101,7 @@ class BurritoFactory extends Factory
     {
         return $this->sequence(
             fn ($sequence) => [
-                'price' => 1200,
+                'price' => 900,
                 'custom_instructions' => $sequence->index % 3 === 0 ? 'Load test burrito' : null,
             ]
         );

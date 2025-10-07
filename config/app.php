@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'America/Phoenix'),
+    'timezone' => env('APP_TIMEZONE', 'America/Los_Angeles'), // Havasu Lake, CA - Pacific timezone
 
     /*
     |--------------------------------------------------------------------------

@@ -3,15 +3,21 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Burrito Configuration
+    | Havasu Lake Burrito Configuration
     |--------------------------------------------------------------------------
     |
-    | Configuration for burrito business logic including pricing, portions,
-    | and build restrictions.
+    | Configuration for Havasu Lake, CA burrito business logic including
+    | pricing, portions, tax rates, and build restrictions.
     |
     */
 
-    'price' => (int) env('BURRITO_PRICE', 1200), // Base price in cents ($12.00)
+    'pricing' => [
+        'base_price_cents' => (int) env('BURRITO_PRICE', 900), // $9.00 community-friendly
+        'tax_rate' => 0.0725, // California sales tax rate for Havasu Lake, CA
+    ],
+
+    // Legacy support
+    'price' => (int) env('BURRITO_PRICE', 900), // Base price in cents ($9.00 - community friendly)
     'tortilla_size' => (int) env('TORTILLA_SIZE', 14), // 14-inch tortillas
     'premium_upcharge' => env('PREMIUM_UPCHARGE', 200), // $2.00 for premium ingredients
 
@@ -43,5 +49,18 @@ return [
         'salsas' => 1.0,            // 2 tablespoons
         'cheese' => 2.0,            // 2 oz
         'other_creamy' => 1.0,      // 1 oz
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Location & Operations (Havasu Lake, CA)
+    |--------------------------------------------------------------------------
+    */
+
+    'location' => [
+        'city' => 'Havasu Lake',
+        'state' => 'CA',
+        'timezone' => 'America/Los_Angeles', // California Pacific timezone
+        'production_days' => ['saturday', 'sunday'],
     ],
 ];

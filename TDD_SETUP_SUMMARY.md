@@ -31,7 +31,7 @@ Comprehensive Test-Driven Development environment successfully configured for th
 - **Touch target validation** - 44px minimum size enforcement
 - **Mobile performance thresholds** - <300ms response times
 - **Weekend-only business logic** - Specialized testing helpers
-- **Arizona timezone handling** - No DST complexity
+- **California timezone handling** - No DST complexity
 
 ### Business Logic Testing
 - **5-step burrito builder** - Complete workflow validation

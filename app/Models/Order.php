@@ -475,7 +475,7 @@ class Order extends Model
     {
         return [
             'ready_for_pickup' => $this->status === OrderStatus::READY,
-            'location' => 'Havasu Lake Burritos - 123 Lake Drive, Lake Havasu City, AZ',
+            'location' => 'Havasu Lake Burritos - 123 Lake Drive, Havasu Lake, AZ',
             'phone' => '+1 (928) 555-0123',
             'hours' => 'Saturday & Sunday: 11:00 AM - 4:00 PM',
             'order_number' => $this->order_number,

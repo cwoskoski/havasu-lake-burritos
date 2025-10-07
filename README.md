@@ -116,7 +116,8 @@ alias sail='./vendor/bin/sail'
 - **Other Toppings**: Variable amounts
 
 ### Pricing
-- **Base Price**: $7.50 per burrito
+- **Base Price**: $9.00 per large burrito
+- **Future Options**: Smaller burrito option planned for more accessibility
 - **Weekly Ingredient Costs**: Configurable per ingredient per week
 
 ## 🏗 Project Structure
@@ -124,16 +125,19 @@ alias sail='./vendor/bin/sail'
 ```
 app/
 ├── Models/
-│   ├── User.php
-│   ├── Ingredient.php
-│   ├── IngredientWeek.php
-│   ├── ProductionDay.php
-│   ├── Order.php
-│   └── Burrito.php
+│   ├── User.php                    # [COMPLETE] Customer accounts with phone verification
+│   ├── Ingredient.php              # [COMPLETE] Advanced business logic with portion management
+│   ├── IngredientWeek.php           # [COMPLETE] Weekly availability and pricing
+│   ├── Order.php                    # [COMPLETE] Order lifecycle management
+│   ├── Burrito.php                  # [COMPLETE] Burrito configuration and portions
+│   ├── ProductionSchedule.php       # [COMPLETE] Weekend production management
+│   └── SmsVerification.php          # [COMPLETE] SMS verification system
+├── Services/
+│   └── SmsService.php               # [COMPLETE] Twilio SMS integration
 ├── Http/Controllers/
-│   ├── BurritoBuilderController.php
-│   ├── OrderController.php
-│   └── Admin/
+│   ├── BurritoBuilderController.php # [PENDING] Customer burrito builder interface
+│   ├── OrderController.php          # [PENDING] Order placement and management
+│   └── Admin/                       # [PENDING] Admin dashboard controllers
 resources/
 ├── views/
 │   ├── components/
@@ -281,25 +285,41 @@ If you prefer traditional hosting:
 
 ## 📊 Features Roadmap
 
-### Phase 1 (Current)
+### Phase 1: Foundation ✅ COMPLETE
 - [x] Basic project structure
 - [x] Implementation documentation
-- [ ] Core migrations and models
-- [ ] Authentication with Laravel Breeze + Phone/SMS verification
-- [ ] SMS integration for order notifications
-- [ ] Basic burrito builder
+- [x] Laravel Sail + Docker development environment
+- [x] TailwindCSS 4.0 + Vite integration
 
-### Phase 2
-- [ ] Kitchen print system
-- [ ] Admin dashboard
-- [ ] Production management
-- [ ] Shopping list generation
+### Phase 2: Core Business Logic ✅ COMPLETE
+- [x] **Advanced Models**: User, Ingredient, Order, Burrito, ProductionSchedule, SmsVerification
+- [x] **Business Logic**: Portion calculations, cost management, nutritional tracking
+- [x] **Weekend Production**: Saturday/Sunday scheduling with daily limits
+- [x] **SMS Integration**: Twilio service with phone verification
+- [x] **Type Safety**: PHP 8.2+ enums and strict typing throughout
+- [x] **Testing Framework**: Pest 3.x with 33+ passing tests
+- [x] **California Timezone**: Proper timezone handling (no DST)
+- [x] **Feature Flags**: Trunk-based development support
+- [x] **Aurora Serverless**: Database optimization and cost management
 
-### Phase 3
-- [ ] Customer order history
-- [ ] Business analytics
-- [ ] Mobile optimizations
-- [ ] Performance enhancements
+### Phase 3: Customer Frontend 🚧 IN PROGRESS
+- [ ] **BurritoBuilderController**: 5-step guided ingredient selection
+- [ ] **Mobile-First UI**: Touch-optimized burrito builder
+- [ ] **Real-Time Availability**: Live countdown of remaining burritos
+- [ ] **Order Placement**: Customer order submission and confirmation
+- [ ] **Guest Checkout**: Phone-only ordering without account
+
+### Phase 4: Kitchen Operations
+- [ ] **Kitchen Dashboard**: Order queue management
+- [ ] **Print System**: Auto-print orders in paper form layout
+- [ ] **Production Planning**: Daily burrito limits and scheduling
+- [ ] **Shopping List Generation**: Automatic ingredient quantity calculations
+
+### Phase 5: Business Intelligence
+- [ ] **Admin Dashboard**: Business analytics and reporting
+- [ ] **Customer History**: Order tracking and preferences
+- [ ] **Performance Monitoring**: System health and usage metrics
+- [ ] **Cost Analysis**: Ingredient usage and profit tracking
 
 ## 🤝 Contributing
 

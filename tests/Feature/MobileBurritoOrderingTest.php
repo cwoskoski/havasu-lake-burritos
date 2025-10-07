@@ -249,7 +249,7 @@ class MobileBurritoOrderingTest extends TestCase
     }
 
     /**
-     * Test Arizona timezone handling.
+     * Test California timezone handling.
      */
     public function test_arizona_timezone_handling(): void
     {

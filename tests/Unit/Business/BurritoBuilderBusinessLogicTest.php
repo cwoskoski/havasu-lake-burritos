@@ -341,8 +341,8 @@ class BurritoBuilderBusinessLogicTest extends TestCase
 
         $price = $this->calculateBurritoPrice($burrito);
 
-        // Base price should be $12.00 (1200 cents)
-        expect($price)->toBe(1200);
+        // Base price should be $9.00 (900 cents)
+        expect($price)->toBe(900);
     }
 
     public function test_premium_ingredient_upcharge(): void
@@ -506,7 +506,7 @@ class BurritoBuilderBusinessLogicTest extends TestCase
 
     protected function calculateBurritoPrice(array $burrito): int
     {
-        $basePrice = 1200; // $12.00
+        $basePrice = 900; // $9.00
         $premiumUpcharge = 0;
 
         foreach ($burrito['proteins'] as $proteinId) {

@@ -376,7 +376,7 @@ class TestDataSeeder extends Seeder
                 'customer_email' => "test{$i}@example.com",
                 'order_date' => $saturday->format('Y-m-d'),
                 'status' => 'pending',
-                'total_amount' => 1200, // $12.00
+                'total_amount' => 900, // $9.00
             ]);
 
             $burrito = \App\Models\Burrito::create([
@@ -388,7 +388,7 @@ class TestDataSeeder extends Seeder
                     'salsas' => ['Medium Salsa'],
                     'creamy' => ['Cheese'],
                 ]),
-                'price' => 1200,
+                'price' => 900,
             ]);
             */
         }

@@ -125,13 +125,13 @@ class TddSetupTest extends TestCase
         expect($ingredientSet)->toHaveKey('creamy');
     }
 
-    public function test_timezone_is_configured_for_arizona(): void
+    public function test_timezone_is_configured_for_california(): void
     {
-        // Arizona timezone testing
-        $arizonaTime = Carbon::create(2024, 10, 12, 12, 0, 0, 'America/Phoenix');
+        // California timezone testing for Havasu Lake, CA
+        $californiaTime = Carbon::create(2024, 10, 12, 12, 0, 0, 'America/Los_Angeles');
 
-        expect($arizonaTime->timezone->getName())->toBe('America/Phoenix');
-        expect(config('app.timezone'))->toBe('America/Phoenix');
+        expect($californiaTime->timezone->getName())->toBe('America/Los_Angeles');
+        expect(config('app.timezone'))->toBe('America/Los_Angeles');
     }
 
     public function test_performance_helpers_are_available(): void
@@ -152,7 +152,7 @@ class TddSetupTest extends TestCase
     public function test_burrito_business_constants_are_set(): void
     {
         // Test business logic constants
-        expect(config('burrito.price'))->toBe(1200); // $12.00
+        expect(config('burrito.price'))->toBe(900); // $9.00
         expect(config('burrito.tortilla_size'))->toBe(14);
         expect(config('weekend.max_daily_burritos'))->toBe(100);
     }
